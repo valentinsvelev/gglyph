@@ -22,7 +22,7 @@ SOFTWARE.
 
 ---
 
-## Data License
+# Data License
 
 The datasets included with this package (in the `data/` directory) are licensed
 under the Creative Commons Attribution 4.0 International (CC BY 4.0) license.
