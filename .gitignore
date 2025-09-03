@@ -1,4 +1,44 @@
+# R build and check artifacts
 .Rproj.user
+.Rhistory
+.Rapp.history
+.RData
+.Ruserdata
+.Rbuildignore
+.Rproj.user/
+.Rproj.user/*
+.Renviron
+
+# Package build outputs
+*.Rcheck/
+*.tar.gz
+*.tgz
+*.zip
+
+# Misc
+*-Ex.R
+.httr-oauth
+*_cache/
+/cache/
+*.utf8.md
+*.knit.md
+
+# Vignettes and docs build
 inst/doc
+doc/
+Meta/
+*.html
+vignettes/*.pdf
+
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# RStudio project files
+*.Rproj
+
+# VSCode project files
+.vscode/
 /doc/
 /Meta/

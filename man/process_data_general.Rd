@@ -22,12 +22,13 @@ A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyp
 Prepare general/non-statistical data for plotting with gglyph::geom_glyph().
 }
 \examples{
+\dontrun{
 ########################
 # For non-grouped data #
 ########################
 
 processed_data <- process_data_general(
-  data = data, 
+  data = data,
   from = "from",
   to = "to"
 )
@@ -37,9 +38,10 @@ processed_data <- process_data_general(
 ####################
 
 processed_data <- process_data_general(
-  data = data, 
-  from = "from", 
-  to = "to", 
+  data = data,
+  from = "from",
+  to = "to",
   group = "group"
 )
+}
 }

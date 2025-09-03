@@ -3,7 +3,7 @@
 \docType{data}
 \name{pisa2022_subset}
 \alias{pisa2022_subset}
-\title{PISA 2022 data}
+\title{PISA 2022 Subset}
 \format{
 A data frame with 189,966 rows and 3 variables:
 \describe{
@@ -15,11 +15,12 @@ A data frame with 189,966 rows and 3 variables:
 \source{
 Data obtained from:
 \itemize{
-\item OECD (2023). \emph{PISA 2022 Database} [Data Set]. Zenodo. \url{https://doi.org/10.5281/zenodo.13382904}
+\item OECD (2023). \emph{PISA 2022 Database} [Data Set]. Zenodo. \doi{10.5281/zenodo.13382904}
 }
+Licensed under CC BY 4.0: \url{https://creativecommons.org/licenses/by/4.0/}
 }
 \usage{
-pisa2022_subset
+data(pisa2022_subset)
 }
 \description{
 A subset from the PISA 2022 data.
@@ -31,8 +32,8 @@ head(pisa2022_subset)
 \references{
 Additional references for further reading:
 \itemize{
-\item OECD (2024). \emph{PISA 2022 Technical Report}. OECD Publishing, Paris. \url{https://doi.org/10.1787/01820d6d-en}
+\item OECD (2024). \emph{PISA 2022 Technical Report}. OECD Publishing, Paris. \doi{10.1787/01820d6d-en}
 \item OECD (2024). \emph{Programme for International Student Assessment (PISA)}. \url{https://www.oecd.org/en/about/programmes/pisa.html}
 }
 }
-\keyword{datasets}
+\keyword{dataset}

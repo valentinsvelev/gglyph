@@ -3,7 +3,7 @@
 \docType{data}
 \name{sipri_milex1949_2023_subset}
 \alias{sipri_milex1949_2023_subset}
-\title{SIPRI Military Expenditure 1949-2023 data}
+\title{SIPRI Military Expenditure 1949-2023 (Subset)}
 \format{
 A data frame with 48 rows and 3 variables:
 \describe{
@@ -15,11 +15,12 @@ A data frame with 48 rows and 3 variables:
 \source{
 Data obtained from:
 \itemize{
-\item SIPRI (2025). \emph{SIPRI Military Expenditure Database} [Data Set]. \url{https://doi.org/10.55163/CQGC9685}
+\item SIPRI (2025). \emph{SIPRI Military Expenditure Database} [Data Set]. \doi{10.55163/CQGC9685}
 }
+Licensed under CC BY 4.0: \url{https://creativecommons.org/licenses/by/4.0/}
 }
 \usage{
-sipri_milex1949_2023_subset
+data(sipri_milex1949_2023_subset)
 }
 \description{
 A subset of the SIPRI Military Expenditure 1949-2023 data.
@@ -28,4 +29,4 @@ A subset of the SIPRI Military Expenditure 1949-2023 data.
 data(sipri_milex1949_2023_subset)
 head(sipri_milex1949_2023_subset)
 }
-\keyword{datasets}
+\keyword{dataset}

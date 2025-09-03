@@ -17,7 +17,7 @@ process_data_statistical(data, from, to, group = NULL, sig, thresh = 0.05)
 
 \item{sig}{A string indicating the column name for the significance level.}
 
-\item{tresh}{A single number indicating the significance threshold. Default is 0.05.}
+\item{thresh}{A single number indicating the significance threshold. Default is 0.05.}
 }
 \value{
 A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
@@ -26,15 +26,16 @@ A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyp
 Prepare statistical data for plotting with gglyph::geom_glyph().
 }
 \examples{
+\dontrun{
 ########################
 # For non-grouped data #
 ########################
 
 processed_data <- process_data_statistical(
-  data = data, 
-  from = "from", 
-  to = "to", 
-  sig = "significance", 
+  data = data,
+  from = "from",
+  to = "to",
+  sig = "significance",
   thresh = 0.05
 )
 
@@ -43,11 +44,12 @@ processed_data <- process_data_statistical(
 ####################
 
 processed_data <- process_data_statistical(
-  data = data, 
-  from = "from", 
-  to = "to", 
-  sig = "significance", 
-  group = "group", 
+  data = data,
+  from = "from",
+  to = "to",
+  sig = "significance",
+  group = "group",
   thresh = 0.05
 )
+}
 }

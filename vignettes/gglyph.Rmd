@@ -45,6 +45,17 @@ In the following chapter, I will illustrate how the main function `geom_glyph()`
 ### Basics
 To begin with, I have created a table table showing the equivalence of `geom_glyph()` arguments and common `ggplot2` arguments. <br>
 
+```{r setup_knitr, include=FALSE}
+library(knitr)
+
+knitr::opts_chunk$set(
+  fig.width = 8, fig.height = 6,
+  dev = if (knitr::is_html_output()) "svglite" else "cairo_pdf",
+  dpi = 120,
+  fig.retina = 2
+)
+```
+
 ```{r equivalence_table, echo=FALSE}
 library(tibble)
 library(kableExtra)
@@ -128,7 +139,7 @@ kable(mock_data_grouped, "html", caption = "<span style='font-size: 0.9em;'>Tabl
 
 With this data we can plot some basic glyphs using the previously generated mock data:
 
-```{r example_glyphs_base, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_base}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph()
@@ -141,7 +152,7 @@ ggplot(data = mock_data_grouped) +
 
 Note that the function works well with up to 9 nodes:
 
-```{r example_glyphs_diff_num_nodes, fig.width=8, fig.height=10, fig.retina=10}
+```{r example_glyphs_diff_num_nodes, fig.height=10}
 plot_list <- list()
 
 for (num_nodes in 3:9) {
@@ -166,7 +177,7 @@ Note that if an edge or a node outline colour is provided but not a fill colour,
 
 Furthermore, if you use a colour function such as `viridis` and you do not manually set a `scale_*_manual()` (more on this below), you will always get the default legend (black nodes and grey edge).
 
-```{r example_glyphs_fill, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_fill}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(node_fill = "purple", edge_fill = "purple")
@@ -179,7 +190,7 @@ ggplot(data = mock_data_grouped) +
 
 Next, you can change the outline color of the nodes and edges:
 
-```{r example_glyphs_outline, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_outline}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -202,7 +213,7 @@ ggplot(data = mock_data_grouped) +
 
 Further, you can change the size of both the nodes and the edges:
 
-```{r example_glyphs_size, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_size}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -229,7 +240,7 @@ ggplot(data = mock_data_grouped) +
 
 Then, you can change the transparency of the nodes and the edges as well as the spacing between the nodes:
 
-```{r example_glyphs_alpha, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_alpha}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -262,7 +273,7 @@ ggplot(data = mock_data_grouped) +
 
 The shape of the nodes can also be changed. Click [here](https://ggplot2.tidyverse.org/reference/scale_shape.html) for a list of all `ggplot2` shapes.
 
-```{r example_glyphs_shape, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_shape}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -295,9 +306,9 @@ ggplot(data = mock_data_grouped) +
   facet_wrap(~ group)
 ```
 
-In addtion, the size of the labels can be changed:
+In addition, the size of the labels can be changed:
 
-```{r example_glyphs_labels, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_labels}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -335,7 +346,7 @@ ggplot(data = mock_data_grouped) +
 
 Similarly, the legend title and subtitle can be changed:
 
-```{r example_glyphs_legend, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_legend}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -390,7 +401,7 @@ discriminate
 
 will appear. This can safely be ignored.
 
-```{r example_glyphs_additional, fig.width=8, fig.height=6, fig.retina=10}
+```{r example_glyphs_additional}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -645,7 +656,7 @@ kable(processed_data_pisa_group %>% head(), "html", caption = "<span style='font
 
 With this data the following plots can be created:
 
-```{r glyphs_pisa_base, fig.width=8, fig.height=6, fig.retina=10}
+```{r glyphs_pisa_base}
 ggplot(data = processed_data_pisa) +
   geom_glyph()
 
@@ -656,7 +667,7 @@ ggplot(data = processed_data_pisa_group) +
 
 And for the SIPRI dataset:
 
-```{r glyphs_sipri_base, fig.width=8, fig.height=6, fig.retina=10}
+```{r glyphs_sipri_base}
 ggplot(data = processed_data_sipri) +
   geom_glyph()
 
@@ -667,7 +678,7 @@ ggplot(data = processed_data_sipri_group) +
 
 After a bit of polishing, they can look like this:
 
-```{r glyphs_pisa_polished, fig.width=8, fig.height=6, fig.retina=10}
+```{r glyphs_pisa_polished}
 ggplot(data = processed_data_pisa) +
   geom_glyph(
     node_colour = "black",
@@ -688,7 +699,7 @@ ggplot(data = processed_data_pisa_group) +
 
 And for the SIPRI dataset:
 
-```{r glyphs_sipri_polished, fig.width=8, fig.height=6, fig.retina=10}
+```{r glyphs_sipri_polished}
 ggplot(data = processed_data_sipri) +
   geom_glyph(
     node_colour = "black",

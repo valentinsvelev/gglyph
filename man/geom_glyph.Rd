@@ -30,6 +30,8 @@ geom_glyph(
 )
 }
 \arguments{
+\item{mapping}{Set of aesthetic mappings created by aes(). You must supply mapping if there is no plot mapping.}
+
 \item{data}{A DataFrame with preprocessed data from either gglyph::preprocess_data_general() or gglyph::preprocess_data_statistical(). To be passed to ggplot2::ggplot().}
 
 \item{edge_size}{A numeric scaling factor indicating the size/width of the edges. Default is 1.}
@@ -79,17 +81,18 @@ A ggplot2 layer with custom network-based graph.
 Create a network-style graph that illustrates directed pairwise relationships using custom edges.
 }
 \examples{
+\dontrun{
 ##################################
 # For non-grouped/-facetted plot #
 ##################################
 
-ggplot(data = data) + 
+ggplot(data = data) +
   geom_glyph()
 
-ggplot(data = data) + 
+ggplot(data = data) +
   geom_glyph(edge_colour = "purple", node_colour = "blue")
 
-ggplot(data = data) + 
+ggplot(data = data) +
   geom_glyph(edge_colour = "purple", node_colour = "blue") +
   labs(title = "A beautiful glyph")
 
@@ -97,18 +100,19 @@ ggplot(data = data) +
 # For grouped/facetted plot #
 #############################
 
-ggplot(data = data) + 
-  geom_glyph() + 
+ggplot(data = data) +
+  geom_glyph() +
   facet_wrap(~ group)
 
-ggplot(data = data) + 
+ggplot(data = data) +
   geom_glyph(edge_colour = viridis, node_colour = viridis) +
   facet_wrap(~ group)
 
-ggplot(data = data) + 
-  geom_glyph(edge_colour = viridis, node_colour = viridis)) +
-  facet_wrap(~ group) + 
+ggplot(data = data) +
+  geom_glyph(edge_colour = viridis, node_colour = viridis) +
+  facet_wrap(~ group) +
   labs(title = "Beautiful glyphs")
+  }
 }
 \seealso{
 \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}

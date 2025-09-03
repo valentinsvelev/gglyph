@@ -1,0 +1,35 @@
+
+# gglyph <img src="man/figures/logo.png" align="right" height="120"/>
+
+<!-- badges: start -->
+
+[![Dev version](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/valentinsvelev/gglyph)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![CRAN status](https://www.r-pkg.org/badges/version/gglyph)](https://CRAN.R-project.org/package=gglyph)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/gglyph)](https://CRAN.R-project.org/package=gglyph)
+[![R-CMD-check](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+**gglyph** provides tools for creating network-style visualizations of
+directed pairwise relationships using custom edge glyphs built on top of
+`ggplot2`.
+
+## Installation
+
+You can install the development version from GitHub:
+
+``` r
+install.packages("devtools")
+devtools::install_github("valentinsvelev/gglyph")
+```
+
+## Use
+
+You can use the package as follows:
+
+``` r
+library(gglyph)
+
+ggplot(data = pisa2022_subset) +
+  geom_glpyh()
+```

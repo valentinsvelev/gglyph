@@ -1,27 +1,51 @@
 Package: gglyph
-Title: Network-style Visualization Of Pairwise Relationships
+Title: Network-Style Visualization Of Directed Pairwise Relationships
 Version: 0.0.0.9000
 Authors@R: c(
     person("Valentin", "Velev", , "valentin.velev@uni-konstanz.de", role = c("cre", "aut")),
     person("Andreas", "Spitz", , "andreas.spitz@uni-konstanz.de", role = "ctb")
   )
-Description: A package for visualizing pairwise relationships using custom
-    edges built on ggplot2.
-License: CC BY 4.0
-Encoding: UTF-8
-Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.3.2
+Description: Provides tools for creating network-style visualizations of
+    pairwise relationships using custom edge glyphs built on top of
+    'ggplot2'. The package supports both statistical and non-statistical
+    data and allows users to represent directed relationships. This
+    enables clear, publication-ready graphics for exploring and
+    communicating relational structures in a wide range of domains. Code
+    is released under the MIT License; included datasets are licensed
+    under the Creative Commons Attribution 4.0 International (CC BY 4.0).
+License: MIT + file LICENSE
+URL: https://github.com/valentinsvelev/gglyph
+BugReports: https://github.com/valentinsvelev/gglyph/issues
+Depends: 
+    R (>= 4.1.0)
 Imports: 
     dplyr,
     ggplot2,
     ggtext,
     grid,
     magrittr,
+    rlang,
+    stats,
     tidyr,
-    viridis
+    utils,
+    viridis,
+    viridisLite
 Suggests: 
+    ggthemes,
+    haven,
+    kableExtra,
     knitr,
+    patchwork,
     psych,
+    purrr,
+    readr,
     rmarkdown,
-    rstatix
-VignetteBuilder: knitr
+    rstatix,
+    svglite,
+    tibble,
+    tidyverse
+VignetteBuilder: 
+    knitr
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
