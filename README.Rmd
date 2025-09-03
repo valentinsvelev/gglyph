@@ -25,11 +25,32 @@ devtools::install_github("valentinsvelev/gglyph")
 
 ## Use
 
-You can use the package as follows:
+You can use the package with real data as follows:
 
 ```r
 library(gglyph)
 
-ggplot(data = pisa2022_subset) +
+data <- process_data_statistical(pisa2022_subset)
+
+ggplot(data = data) +
   geom_glpyh()
+```
+
+Or by first generating mock data:
+
+```r
+library(gglyph)
+
+data <- generate_mock_data(n_nodes = 5, n_edges = 10)
+
+ggplot(data = data) +
+  geom_glpyh()
+```
+
+# Citation
+
+To cite the package use:
+
+```
+Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.0.0.9000. https://github.com/valentinsvelev/gglyph
 ```

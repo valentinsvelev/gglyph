@@ -51,7 +51,6 @@ library(knitr)
 knitr::opts_chunk$set(
   fig.width = 8, fig.height = 6,
   dev = if (knitr::is_html_output()) "svglite" else "cairo_pdf",
-  dpi = 120,
   fig.retina = 2
 )
 ```
