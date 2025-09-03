@@ -9,9 +9,6 @@
 #' @param sig A string indicating the column name for the significance level.
 #' @param thresh A single number indicating the significance threshold. Default is 0.05.
 #' @return A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
-#' @import dplyr
-#' @import tidyr
-#' @importFrom magrittr %>%
 #' @export
 #' @examples
 #' \dontrun{

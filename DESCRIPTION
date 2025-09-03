@@ -26,10 +26,9 @@ Imports:
     magrittr,
     rlang,
     stats,
+    tibble,
     tidyr,
-    utils,
-    viridis,
-    viridisLite
+    utils
 Suggests: 
     ggthemes,
     haven,
@@ -42,10 +41,13 @@ Suggests:
     rmarkdown,
     rstatix,
     svglite,
-    tibble,
-    tidyverse
+    testthat (>= 3.0.0),
+    tidyverse,
+    viridis,
+    viridisLite
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.3.2
+Config/testthat/edition: 3

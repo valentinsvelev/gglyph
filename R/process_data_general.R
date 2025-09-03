@@ -7,9 +7,6 @@
 #' @param to A string indicating the column name for the end nodes.
 #' @param group A string indicating the column name for the grouping variable.
 #' @return A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
-#' @import dplyr
-#' @import tidyr
-#' @importFrom magrittr %>%
 #' @export
 #' @examples
 #' \dontrun{

@@ -1,4 +1,13 @@
-#' @importFrom rlang .data
+#' @importFrom dplyr filter select group_by mutate ungroup case_when n where bind_rows rename select_if
+#' @importFrom tibble tibble
+#' @importFrom tidyr expand_grid
+#' @importFrom magrittr %>%
+#' @importFrom ggplot2 ggproto Geom aes layer coord_fixed theme_void theme
+#' @importFrom ggplot2 element_text margin guides guide_legend geom_blank labs
+#' @importFrom ggplot2 last_plot ggplot_build
+#' @importFrom grid grobTree polygonGrob pointsGrob textGrob unit gpar nullGrob gList
+#' @importFrom ggtext element_markdown
+#' @importFrom rlang .data `%||%` sym
 #' @importFrom stats setNames runif complete.cases
 #' @importFrom utils combn
 NULL

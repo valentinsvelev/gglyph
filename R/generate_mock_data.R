@@ -8,8 +8,6 @@
 #' @param statistical If TRUE, generates mock p-values for edges.
 #' @param p_threshold The significance threshold for filtering edges.
 #' @return A data frame with mock data for nodes and edges.
-#' @importFrom utils combn
-#' @importFrom stats runif complete.cases
 #' @export
 #' @examples
 #' \dontrun{
@@ -63,7 +61,10 @@ generate_mock_data <- function(
     all_unique_edges <- t(combn(node_pool, 2))
 
     # Sample the desired number of edges from the pool of unique edges.
-    sampled_indices <- sample(1:nrow(all_unique_edges), n_edges)
+    n <- nrow(all_unique_edges)
+    if (n_edges <= 0 || n <= 0) {sampled_indices <- integer(0)}
+    else {sampled_indices <- sample.int(n, size = min(n_edges, n), replace = n_edges > n)}
+
     edges <- tibble(
       from = all_unique_edges[sampled_indices, 1],
       to = all_unique_edges[sampled_indices, 2]
@@ -95,9 +96,7 @@ generate_mock_data <- function(
 
     if (nrow(edges) == 0) {merged_edges <- tibble()}
     else {
-      if (statistical) {
-        edges$threshold <- p_threshold
-      }
+      if (statistical) {edges$threshold <- p_threshold}
 
       if (n_groups > 1) {
         merged_edges <- merge(edges, node_positions, by.x = c("from", "group"), by.y = c("label", "group"), all = TRUE)
@@ -110,6 +109,7 @@ generate_mock_data <- function(
 
       required_cols <- c("x.from", "y.from", "x.to", "y.to")
       merged_edges <- merged_edges[complete.cases(merged_edges[, required_cols]), ]
+
       if (nrow(merged_edges) > 0) {merged_edges$type <- "edge"}
     }
 

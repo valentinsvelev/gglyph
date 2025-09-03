@@ -98,8 +98,6 @@
 #' A custom ggproto object for drawing edges with variable widths at start and end points.
 #'
 #' @format A ggproto object for custom edge rendering in ggplot2.
-#' @import ggplot2
-#' @import grid
 #' @noRd
 GeomGlyphEdge <- ggplot2::ggproto("GeomGlyphEdge", Geom,
                                   required_aes = c("x", "y", "xend", "yend", "fill_internal"),
@@ -282,8 +280,6 @@ GeomGlyphEdge <- ggplot2::ggproto("GeomGlyphEdge", Geom,
 #' A custom ggproto object for drawing nodes with labels at specified angles and positions.
 #'
 #' @format A ggproto object for custom node rendering in ggplot2.
-#' @import ggplot2
-#' @import grid
 #' @noRd
 GeomGlyphNode <- ggproto("GeomGlyphNode", Geom,
                          required_aes = c("x", "y", "label", "angle"),
@@ -386,13 +382,6 @@ GeomGlyphNode <- ggproto("GeomGlyphNode", Geom,
 #' @param show.legend Should this layer be included in the legends? Default is TRUE.
 #' @param inherit.aes If FALSE, overrides the default aesthetics, rather than combining with them. Default is FALSE.
 #' @return A ggplot2 layer with custom network-based graph.
-#' @import ggplot2
-#' @import ggtext
-#' @import viridisLite
-#' @import viridis
-#' @importFrom dplyr filter rename
-#' @importFrom stats setNames
-#' @importFrom rlang .data
 #' @seealso [ggplot2::ggsave()]
 #' @export
 #' @examples
@@ -466,21 +455,32 @@ geom_glyph <- function(
 
   ## Color argument
   if ("group" %in% names(data)) {
-    if (length(col) > 1 && length(col) != length(unique(data$group))) {
+    if (length(node_colour) > 1 && length(node_colour) != length(unique(data$group))) {
       warning("You have provided less colors than groups. The colors you have provided will be repeated across the groups. To have different unique colors for each group, please provide either a string vector with length = number of groups or a color function (e.g., viridisLite::viridis).", call. = FALSE)
-    } else if (length(col) > length(unique(data$group))) {
+    } else if (length(node_colour) > length(unique(data$group))) {
       warning("You have provided more colors than groups. The additional colors are not considered.", call. = FALSE)
     }
   }
 
   ## Other arguments
-  if (any(!sapply(list(node_size, label_size, group_label_size, node_spacing), function(x) is.numeric(x) && !is.character(x)))) {
-    stop("Please make sure that the arguments 'node_size', 'label_size', 'group_label_size', 'node_spacing', and 'alpha' are numeric (integers or decimals) and not characters.", call. = FALSE)
+  vals <- list(node_size, label_size, group_label_size, node_spacing)
+
+  ok <- vapply(
+    vals,
+    function(x) is.numeric(x) && !is.character(x),
+    logical(1)
+  )
+
+  if (any(!ok)) {
+    stop(
+      "Please make sure 'node_size', 'label_size', 'group_label_size', and ",
+      "'node_spacing' are numeric (integers or decimals), not characters.",
+      call. = FALSE
+    )
   }
 
   # Add a flag for last group (for legend text "X" and "Y" in faceted plot)
   combined_mapping <- c(mapping, ggplot2::last_plot()$mapping)
-
   auto_guides_layer <- NULL
 
   if ("group" %in% names(data)) {

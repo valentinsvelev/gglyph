@@ -49,6 +49,20 @@ ggplot(data = data) +
 
 # Citation
 
+``` r
+citation("gglyph")
+```
+
 To cite the package use:
 
     Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.0.0.9000. https://github.com/valentinsvelev/gglyph
+
+Or for LaTeX users:
+
+    @Manual{,
+      title = {{gglyph: Network-Style Visualization Of Directed Pairwise Relationships}},
+      author = {Velev, Valentin and Spitz, Andreas},
+      year = {2021},
+      note = {R package version 0.0.0.9000},
+      url = {https://github.com/valentinsvelev/gglyph}
+    }
