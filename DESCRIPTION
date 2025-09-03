@@ -1,0 +1,27 @@
+Package: gglyph
+Title: Network-style Visualization Of Pairwise Relationships
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Valentin", "Velev", , "valentin.velev@uni-konstanz.de", role = c("cre", "aut")),
+    person("Andreas", "Spitz", , "andreas.spitz@uni-konstanz.de", role = "ctb")
+  )
+Description: A package for visualizing pairwise relationships using custom
+    edges built on ggplot2.
+License: CC BY 4.0
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+Imports: 
+    dplyr,
+    ggplot2,
+    ggtext,
+    grid,
+    magrittr,
+    tidyr,
+    viridis
+Suggests: 
+    knitr,
+    psych,
+    rmarkdown,
+    rstatix
+VignetteBuilder: knitr
