@@ -455,10 +455,13 @@ geom_glyph <- function(
 
   ## Color argument
   if ("group" %in% names(data)) {
-    if (length(node_colour) > 1 && length(node_colour) != length(unique(data$group))) {
-      warning("You have provided less colors than groups. The colors you have provided will be repeated across the groups. To have different unique colors for each group, please provide either a string vector with length = number of groups or a color function (e.g., viridisLite::viridis).", call. = FALSE)
-    } else if (length(node_colour) > length(unique(data$group))) {
-      warning("You have provided more colors than groups. The additional colors are not considered.", call. = FALSE)
+    n_groups <- length(unique(data$group))
+    if (length(node_colour) > 1) {
+      if (length(node_colour) < n_groups) {
+        warning("You have provided fewer colors than groups. The colors you have provided will be repeated across the groups. To have different unique colors for each group, please provide either a string vector with length = number of groups or a color function (e.g., viridisLite::viridis).", call. = FALSE)
+      } else if (length(node_colour) > n_groups) {
+        warning("You have provided more colors than groups. The additional colors are not considered.", call. = FALSE)
+      }
     }
   }
 
