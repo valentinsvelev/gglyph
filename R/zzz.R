@@ -7,7 +7,7 @@
 #' @importFrom ggplot2 last_plot ggplot_build
 #' @importFrom grid grobTree polygonGrob pointsGrob textGrob unit gpar nullGrob gList
 #' @importFrom ggtext element_markdown
-#' @importFrom rlang .data `%||%` sym
+#' @importFrom rlang .data `%||%` sym is_integerish abort
 #' @importFrom stats setNames runif complete.cases
 #' @importFrom utils combn
 NULL

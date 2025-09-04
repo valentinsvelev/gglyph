@@ -13,15 +13,15 @@ generate_mock_data(
 )
 }
 \arguments{
-\item{n_nodes}{Number of nodes in the graph.}
+\item{n_nodes}{Number of nodes in the graph. Default is 5.}
 
-\item{n_edges}{Number of edges to generate.}
+\item{n_edges}{Number of edges to generate. Default is 7.}
 
-\item{n_groups}{Number of groups (for faceting).}
+\item{n_groups}{Number of groups (for faceting). Default is 1 (ungrouped).}
 
-\item{statistical}{If TRUE, generates mock p-values for edges.}
+\item{statistical}{If TRUE, generates mock p-values for edges. Default is FALSE.}
 
-\item{p_threshold}{The significance threshold for filtering edges.}
+\item{p_threshold}{The significance threshold for filtering edges. Default is 0.05.}
 }
 \value{
 A data frame with mock data for nodes and edges.

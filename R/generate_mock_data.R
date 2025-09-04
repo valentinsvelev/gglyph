@@ -2,11 +2,11 @@
 #'
 #' Generates custom mock data to be passed to gglyph::geom_glyph().
 #'
-#' @param n_nodes Number of nodes in the graph.
-#' @param n_edges Number of edges to generate.
-#' @param n_groups Number of groups (for faceting).
-#' @param statistical If TRUE, generates mock p-values for edges.
-#' @param p_threshold The significance threshold for filtering edges.
+#' @param n_nodes Number of nodes in the graph. Default is 5.
+#' @param n_edges Number of edges to generate. Default is 7.
+#' @param n_groups Number of groups (for faceting). Default is 1 (ungrouped).
+#' @param statistical If TRUE, generates mock p-values for edges. Default is FALSE.
+#' @param p_threshold The significance threshold for filtering edges. Default is 0.05.
 #' @return A data frame with mock data for nodes and edges.
 #' @export
 #' @examples
@@ -42,6 +42,18 @@ generate_mock_data <- function(
     statistical = FALSE,
     p_threshold = 0.05
 ) {
+
+  # Check for correct input
+  if (!rlang::is_integerish(n_nodes, n = 1, finite = TRUE) ||
+      !rlang::is_integerish(n_edges, n = 1, finite = TRUE) ||
+      !rlang::is_integerish(n_groups, n = 1, finite = TRUE) ||
+      !is.logical(statistical) || length(statistical) != 1L ||
+      !is.numeric(p_threshold) || length(p_threshold) != 1L ||
+      !is.finite(p_threshold) || p_threshold < 0 || p_threshold > 1) {
+    rlang::abort("Please make sure to provide the correct input types.", class = "gglyph_bad_args")
+  }
+
+  # Init
   all_groups_data <- list()
   start_angle <- pi / 2
 
