@@ -30,7 +30,7 @@ navbar:
 
 # Reference index — group your key functions
 reference:
-  - title:
+  - title: Visualization
     contents:
       - geom_glyph
   - title: Data preprocessing
