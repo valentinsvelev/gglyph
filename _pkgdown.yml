@@ -1,0 +1,52 @@
+url: https://valentinsvelev.github.io/gglyph
+template:
+  bootstrap: 5
+  bootswatch: flatly
+  bslib:
+    base_font: { google: "Fira Sans" }
+    heading_font: { google: "Fira Sans" }
+    pkgdown-nav-height: 90px # space between nav bar and title
+
+logo: man/figures/logo.png
+
+home:
+  sidebar:
+    structure: [links, license, citation, authors, dev]
+    links:
+    - text: GitHub repo
+      href: https://github.com/valentinsvelev/gglyph
+    - text: Report an issue
+      href: https://github.com/valentinsvelev/gglyph/issues
+
+navbar:
+  structure:
+    left:  [reference, articles, news]
+    right: [search, github]
+  components:
+    github:
+      icon: fa-github
+      aria-label: "GitHub repository"
+      href: https://github.com/valentinsvelev/gglyph
+
+# Reference index — group your key functions
+reference:
+  - title:
+    contents:
+      - geom_glyph
+  - title: Data preprocessing
+    contents:
+      - process_data_general
+      - process_data_statistical
+  - title: Utilities
+    contents:
+      - generate_mock_data
+  - title: Datasets
+    contents:
+      - pisa2022_subset
+      - sipri_milex1949_2023_subset
+
+# Vignettes listed on the "Articles" page (built from vignettes/*.Rmd)
+articles:
+  - title: Getting started
+    contents:
+      - gglyph

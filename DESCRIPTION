@@ -14,7 +14,7 @@ Description: Provides tools for creating network-style visualizations of
     is released under the MIT License; included datasets are licensed
     under the Creative Commons Attribution 4.0 International (CC BY 4.0).
 License: MIT + file LICENSE
-URL: https://github.com/valentinsvelev/gglyph
+URL: https://valentinsvelev.github.io/gglyph
 BugReports: https://github.com/valentinsvelev/gglyph/issues
 Depends: 
     R (>= 4.1.0)

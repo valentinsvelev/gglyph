@@ -1,10 +1,10 @@
 ---
-title: "A guide on how to use the package `gglyph`"
+title: "A guide on how to use the package gglyph"
 author: Valentin Velev (University of Konstanz)
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{A guide on how to use the package `gglyph`}
+  %\VignetteIndexEntry{A guide on how to use the package gglyph}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -48,11 +48,7 @@ To begin with, I have created a table table showing the equivalence of `geom_gly
 ```{r setup_knitr, include=FALSE}
 library(knitr)
 
-knitr::opts_chunk$set(
-  fig.width = 8, fig.height = 6,
-  dev = if (knitr::is_html_output()) "svglite" else "cairo_pdf",
-  fig.retina = 2
-)
+
 ```
 
 ```{r equivalence_table, echo=FALSE}
@@ -62,16 +58,16 @@ library(kableExtra)
 eq_table <- tribble(
   ~`geom_glyph Argument`, ~`ggplot2 Equivalent`, ~Explanation,
   #-------------------------------|---------------------------------|----------------------------------------------------------------------
-  "`edge_colour`, `node_colour`",   "`color`",                     "Controls the outline color of the nodes/edges.",
-  "`edge_fill`, `node_fill`",       "`fill`",                      "Controls the fill color of the nodes/edges.",
-  "`edge_alpha`, `node_alpha`",     "`alpha`",                     "Controls the transparency of the nodes/edges.",
-  "`edge_size`, `node_size`",       "`size`",                      "Controls the size of the nodes/edges.",
-  "`node_spacing`",                 "",                    "Controls the space between the nodes; not a standard `ggplot2` argument.",
-  "`node_shape`",                   "`shape`",                     "Controls the shape of the nodes.",
+  "`edge_colour`, `node_colour`",   "`color`",                       "Controls the outline color of the nodes/edges.",
+  "`edge_fill`, `node_fill`",       "`fill`",                        "Controls the fill color of the nodes/edges.",
+  "`edge_alpha`, `node_alpha`",     "`alpha`",                       "Controls the transparency of the nodes/edges.",
+  "`edge_size`, `node_size`",       "`size`",                        "Controls the size of the nodes/edges.",
+  "`node_spacing`",                 "N/A",                           "Controls the space between the nodes; not a standard `ggplot2` argument.",
+  "`node_shape`",                   "`shape`",                       "Controls the shape of the nodes.",
   "`label_size`",                   "`fontsize` in `grid::gpar()`",  "Controls the font size of the node labels.",
-  "`group_label_size`",             "`theme(strip.text)`",         "Controls the font size of the facet labels (group titles).",
-  "`legend_title`",                 "`title` in `guides()`",             "Sets the main title text within the legend.",
-  "`legend_subtitle`",              "`title` in `guides()`",             "Sets an additional subtitle."
+  "`group_label_size`",             "`theme(strip.text)`",           "Controls the font size of the facet labels (group titles).",
+  "`legend_title`",                 "`title` in `guides()`",         "Sets the main title text within the legend.",
+  "`legend_subtitle`",              "`title` in `guides()`",         "Sets an additional subtitle."
 )
 
 kable(eq_table, "html", caption = "<span style='font-size: 0.9em;'>Table 1: Equivalence of geom_glyph and ggplot2 arguments</span>", booktabs = TRUE) %>%
@@ -151,7 +147,7 @@ ggplot(data = mock_data_grouped) +
 
 Note that the function works well with up to 9 nodes:
 
-```{r example_glyphs_diff_num_nodes, fig.height=10}
+```{r example_glyphs_diff_num_nodes}
 plot_list <- list()
 
 for (num_nodes in 3:9) {

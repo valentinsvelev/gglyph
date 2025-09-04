@@ -2,11 +2,18 @@
 # gglyph <img src="man/figures/logo.png" align="right" height="120"/>
 
 <!-- badges: start -->
-[![Dev version](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/valentinsvelev/gglyph)
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-[![CRAN status](https://www.r-pkg.org/badges/version/gglyph)](https://CRAN.R-project.org/package=gglyph)
-[![CRAN downloads](https://cranlogs.r-pkg.org/badges/gglyph)](https://CRAN.R-project.org/package=gglyph)
+
+[![Dev
+version](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/valentinsvelev/gglyph)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/gglyph)](https://CRAN.R-project.org/package=gglyph)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/gglyph)](https://CRAN.R-project.org/package=gglyph)
 [![R-CMD-check](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml)
+[![codecov](https://codecov.io/gh/valentinsvelev/gglyph/branch/main/graph/badge.svg)](https://codecov.io/gh/valentinsvelev/gglyph)
+
 <!-- badges: end -->
 
 **gglyph** provides tools for creating network-style visualizations of
@@ -51,7 +58,7 @@ ggplot(data = data) +
   geom_glpyh()
 ```
 
-# Citation
+## Citation
 
 ``` r
 citation("gglyph")
