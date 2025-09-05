@@ -2,7 +2,7 @@
 output: github_document
 ---
 
-# gglyph: Network-Style Visualization Of Directed Pairwise Relationships <img src="man/figures/logo.png" align="right" height="120"/>
+# gglyph: Network-Style Visualization of Directed Pairwise Relationships <img src="man/figures/logo.png" align="right" height="120"/>
 
 <!-- badges: start -->
 [![Dev version](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/valentinsvelev/gglyph)

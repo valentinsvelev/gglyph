@@ -1,5 +1,5 @@
 
-# gglyph: Network-Style Visualization Of Directed Pairwise Relationships <img src="man/figures/logo.png" align="right" height="120"/>
+# gglyph: Network-Style Visualization of Directed Pairwise Relationships <img src="man/figures/logo.png" align="right" height="120"/>
 
 <!-- badges: start -->
 
