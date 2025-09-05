@@ -7,10 +7,16 @@
 *.yaml  text eol=lf
 *.csv   text eol=lf
 *.tsv   text eol=lf
-*.rda   binary
-*.RData binary
-*.png   binary
-*.jpg   binary
-*.jpeg  binary
-*.gif   binary
-*.pdf   binary
+*.json  text eol=lf
+DESCRIPTION text eol=lf
+NAMESPACE text eol=lf
+
+*.png binary
+*.ico binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.rda binary
+*.zip binary
+*.gz binary
