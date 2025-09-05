@@ -161,7 +161,7 @@ GeomGlyphEdge <- ggplot2::ggproto("GeomGlyphEdge", Geom,
                                           current_edge_colour <- if (is.null(current_edge_colour)) {params$edge_colour[1]} else current_edge_colour
                                           current_edge_fill <- if (is.null(current_edge_fill)) {params$edge_fill[1]} else current_edge_fill
                                         }
-                                        else { # ...
+                                        else {
                                           current_node_colour <- params$node_colours[params$counter$i]
                                           current_node_fill <- params$node_fills[params$counter$i]
                                           current_node_shape  <- params$node_shapes[params$counter$i]
