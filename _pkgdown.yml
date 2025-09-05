@@ -20,9 +20,25 @@ home:
 
 navbar:
   structure:
-    left:  [reference, articles, news]
+    left:  [home, reference, articles, news]
     right: [search, github]
   components:
+    home:
+      icon: fa-home
+      text: "Home"
+      href: index.html
+    reference:
+      icon: fa-code
+      text: "Reference"
+      href: reference/index.html
+    articles:
+      icon: fa-regular fa-file-lines
+      text: "Articles"
+      href: articles/index.html
+    news:
+      icon: fa-newspaper-o
+      text: "Changelog"
+      href: news/index.html
     github:
       icon: fa-github
       aria-label: "GitHub repository"
