@@ -14,8 +14,7 @@ downloads](https://cranlogs.r-pkg.org/badges/gglyph)](https://CRAN.R-project.org
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R-CMD-check](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml)
-[![Codecov test
-coverage](https://codecov.io/gh/valentinsvelev/gglyph/graph/badge.svg)](https://app.codecov.io/gh/valentinsvelev/gglyph)
+[![codecov](https://codecov.io/gh/valentinsvelev/gglyph/branch/master/graph/badge.svg)](https://app.codecov.io/gh/valentinsvelev/gglyph?branch=master)
 <!-- badges: end -->
 
 `gglyph` provides tools for creating network-style visualizations of
