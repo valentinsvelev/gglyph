@@ -1,6 +1,6 @@
 Package: gglyph
 Title: Network-Style Visualization of Directed Pairwise Relationships
-Version: 0.0.0.9000
+Version: 0.1.0
 Authors@R: c(
     person("Valentin", "Velev", , "valentin.velev@uni-konstanz.de", role = c("cre", "aut")),
     person("Andreas", "Spitz", , "andreas.spitz@uni-konstanz.de", role = "ctb")

@@ -1,6 +1,7 @@
-# gglyph (development version)
+# gglyph 0.1.0
 
-### version 0.0.0.9000 (pre-release)
+* Submission to CRAN.
 
-* Pre-release
-* Includes working version but might have bugs
+# gglyph 0.0.0.9000
+
+* Development version (not released to CRAN).
