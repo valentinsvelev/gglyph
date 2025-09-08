@@ -33,7 +33,6 @@ head(pisa2022_subset)
 Additional references for further reading:
 \itemize{
 \item OECD (2024). \emph{PISA 2022 Technical Report}. OECD Publishing, Paris. \doi{10.1787/01820d6d-en}
-\item OECD (2024). \emph{Programme for International Student Assessment (PISA)}. \url{https://www.oecd.org/en/about/programmes/pisa.html}
 }
 }
 \keyword{dataset}
