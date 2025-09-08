@@ -4,7 +4,7 @@
 <!-- badges: start -->
 
 [![Dev
-version](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/valentinsvelev/gglyph)
+version](https://img.shields.io/badge/devel%20version-0.1.0-orange.svg)](https://github.com/valentinsvelev/gglyph)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN
@@ -67,14 +67,14 @@ citation("gglyph")
 
 To cite the package use:
 
-    Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.0.0.9000. https://github.com/valentinsvelev/gglyph
+    Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.1.0. https://github.com/valentinsvelev/gglyph
 
 Or for LaTeX users:
 
     @Manual{,
       title = {{gglyph: Network-Style Visualization Of Directed Pairwise Relationships}},
       author = {Velev, Valentin and Spitz, Andreas},
-      year = {2021},
-      note = {R package version 0.0.0.9000},
+      year = {2025},
+      note = {R package version 0.1.0},
       url = {https://github.com/valentinsvelev/gglyph}
     }

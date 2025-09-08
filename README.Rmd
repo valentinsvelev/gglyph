@@ -5,7 +5,7 @@ output: github_document
 # gglyph: Network-Style Visualization of Directed Pairwise Relationships <img src="man/figures/logo.png" align="right" height="120"/>
 
 <!-- badges: start -->
-[![Dev version](https://img.shields.io/badge/devel%20version-0.0.0.9000-orange.svg)](https://github.com/valentinsvelev/gglyph)
+[![Dev version](https://img.shields.io/badge/devel%20version-0.1.0-orange.svg)](https://github.com/valentinsvelev/gglyph)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![CRAN status](https://www.r-pkg.org/badges/version/gglyph)](https://CRAN.R-project.org/package=gglyph)
 [![CRAN downloads](https://cranlogs.r-pkg.org/badges/gglyph)](https://CRAN.R-project.org/package=gglyph)
@@ -63,7 +63,7 @@ citation("gglyph")
 To cite the package use:
 
 ```
-Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.0.0.9000. https://github.com/valentinsvelev/gglyph
+Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.1.0. https://github.com/valentinsvelev/gglyph
 ```
 
 Or for LaTeX users:
@@ -72,8 +72,8 @@ Or for LaTeX users:
 @Manual{,
   title = {{gglyph: Network-Style Visualization Of Directed Pairwise Relationships}},
   author = {Velev, Valentin and Spitz, Andreas},
-  year = {2021},
-  note = {R package version 0.0.0.9000},
+  year = {2025},
+  note = {R package version 0.1.0},
   url = {https://github.com/valentinsvelev/gglyph}
 }
 ```
