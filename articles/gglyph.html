@@ -2809,106 +2809,12 @@ parent (HISCED), and an average score of the math comprehension items
 (PV*MATH).</p>
 <p>For the SIPRI dataset, I will use the absolute amount of military
 expenditures in current US dollars.</p>
-<br><details><summary>
-Show/Hide Code
-</summary><div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load both datasets</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"pisa2022_subset"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="st">"sipri_milex1949_2023_subset"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Wrangle the SIPRI dataset 1/2</span></span>
-<span><span class="va">country_pairs</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/expand.grid.html" class="external-link">expand.grid</a></span><span class="op">(</span></span>
-<span>  Year  <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1995</span>, <span class="fl">1999</span>, <span class="fl">2003</span>, <span class="fl">2007</span>, <span class="fl">2011</span>, <span class="fl">2015</span>, <span class="fl">2019</span>, <span class="fl">2023</span><span class="op">)</span>,</span>
-<span>  Country1 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">sipri_milex1949_2023_subset</span><span class="op">$</span><span class="va">Country</span><span class="op">)</span>,</span>
-<span>  Country2 <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">sipri_milex1949_2023_subset</span><span class="op">$</span><span class="va">Country</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Country1</span> <span class="op">!=</span> <span class="va">Country2</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html" class="external-link">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">Country1</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fu"><a href="https://rdrr.io/r/base/character.html" class="external-link">as.character</a></span><span class="op">(</span><span class="va">Country2</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Wrangle the SIPRI dataset 2/2</span></span>
-<span><span class="va">sipri_dat_plot</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">country_pairs</span>, <span class="va">sipri_milex1949_2023_subset</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country1"</span> <span class="op">=</span> <span class="st">"Country"</span>, <span class="st">"Year"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Spending_Country1 <span class="op">=</span> <span class="va">Spending</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate-joins.html" class="external-link">left_join</a></span><span class="op">(</span><span class="va">sipri_milex1949_2023_subset</span>, by <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Country2"</span> <span class="op">=</span> <span class="st">"Country"</span>, <span class="st">"Year"</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>Spending_Country2 <span class="op">=</span> <span class="va">Spending</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Spending_Country1</span> <span class="op">&gt;</span> <span class="fl">5000</span> <span class="op">&amp;</span> <span class="va">Spending_Country2</span> <span class="op">&gt;</span> <span class="fl">5000</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    Start <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
-<span>      <span class="va">Spending_Country1</span> <span class="op">&gt;</span> <span class="va">Spending_Country2</span> <span class="op">~</span> <span class="va">Country1</span>,</span>
-<span>      <span class="va">Spending_Country1</span> <span class="op">&lt;</span> <span class="va">Spending_Country2</span> <span class="op">~</span> <span class="va">Country2</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    End <span class="op">=</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/case_when.html" class="external-link">case_when</a></span><span class="op">(</span></span>
-<span>      <span class="va">Spending_Country1</span> <span class="op">&gt;</span> <span class="va">Spending_Country2</span> <span class="op">~</span> <span class="va">Country2</span>,</span>
-<span>      <span class="va">Spending_Country1</span> <span class="op">&lt;</span> <span class="va">Spending_Country2</span> <span class="op">~</span> <span class="va">Country1</span></span>
-<span>    <span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p>Now, I will conduct the statistical analyses (grouped pairwise
-t-tests) using (a subset of) the PISA 2022 dataset.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Direction: significantly less than</span></span>
-<span><span class="va">pisa2022_ttest_less</span> <span class="op">&lt;-</span> <span class="va">pisa2022_subset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">CNT</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    results <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/stats/pairwise.t.test.html" class="external-link">pairwise.t.test</a></span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="va">MATH</span>,</span>
-<span>        g <span class="op">=</span> <span class="va">HISCED</span>,</span>
-<span>        p.adjust.method <span class="op">=</span> <span class="st">"bonferroni"</span>,</span>
-<span>        alternative <span class="op">=</span> <span class="st">"less"</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Direction: significantly greater than</span></span>
-<span><span class="va">pisa2022_ttest_greater</span> <span class="op">&lt;-</span> <span class="va">pisa2022_subset</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">CNT</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    results <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/stats/pairwise.t.test.html" class="external-link">pairwise.t.test</a></span><span class="op">(</span></span>
-<span>        x <span class="op">=</span> <span class="va">MATH</span>,</span>
-<span>        g <span class="op">=</span> <span class="va">HISCED</span>,</span>
-<span>        p.adjust.method <span class="op">=</span> <span class="st">"bonferroni"</span>,</span>
-<span>        alternative <span class="op">=</span> <span class="st">"greater"</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span>,</span>
-<span>    .groups <span class="op">=</span> <span class="st">"drop"</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-<p>The resulting objects are DataFrames with nested lists, meaning they
-need to be transformed:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Function for tidying up the statistical analysis results</span></span>
-<span><span class="va">ttests_to_long</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">ttests</span>, <span class="va">group</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  <span class="va">ttests</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rowwise.html" class="external-link">rowwise</a></span><span class="op">(</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>      p_value_matrix <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>        <span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">results</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">p.value</span><span class="op">)</span><span class="op">)</span> <span class="va">results</span><span class="op">$</span><span class="va">p.value</span> <span class="kw">else</span> <span class="cn">NULL</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html" class="external-link">is.null</a></span><span class="op">(</span><span class="va">p_value_matrix</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>      tidy_results <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/as.data.frame.html" class="external-link">as.data.frame</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">as.table</a></span><span class="op">(</span><span class="va">p_value_matrix</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/unnest.html" class="external-link">unnest</a></span><span class="op">(</span>cols <span class="op">=</span> <span class="va">tidy_results</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/rename.html" class="external-link">rename</a></span><span class="op">(</span>country <span class="op">=</span> <span class="va">group</span>, p_value <span class="op">=</span> <span class="va">Freq</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/select.html" class="external-link">select</a></span><span class="op">(</span><span class="va">country</span>, cat1 <span class="op">=</span> <span class="va">Var1</span>, cat2 <span class="op">=</span> <span class="va">Var2</span>, <span class="va">p_value</span><span class="op">)</span></span>
-<span><span class="op">}</span></span>
-<span></span>
-<span><span class="co"># Tidy up PISA</span></span>
-<span><span class="va">pisa2022_ttests</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/bind_rows.html" class="external-link">bind_rows</a></span><span class="op">(</span></span>
-<span>  <span class="fu">ttests_to_long</span><span class="op">(</span>ttests <span class="op">=</span> <span class="va">pisa2022_ttest_less</span>, group <span class="op">=</span> <span class="st">"CNT"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">p_value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"less"</span><span class="op">)</span>,</span>
-<span>  <span class="fu">ttests_to_long</span><span class="op">(</span>ttests <span class="op">=</span> <span class="va">pisa2022_ttest_greater</span>, group <span class="op">=</span> <span class="st">"CNT"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://tidyr.tidyverse.org/reference/drop_na.html" class="external-link">drop_na</a></span><span class="op">(</span><span class="va">p_value</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>direction <span class="op">=</span> <span class="st">"greater"</span><span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span></span>
-<span>    start <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">direction</span> <span class="op">==</span> <span class="st">"less"</span>, <span class="va">cat1</span>, <span class="va">cat2</span><span class="op">)</span>,</span>
-<span>    end <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="va">direction</span> <span class="op">==</span> <span class="st">"less"</span>, <span class="va">cat2</span>, <span class="va">cat1</span><span class="op">)</span></span>
-<span>  <span class="op">)</span></span></code></pre></div>
-</details><p><br></p>
-<p>This is what the “raw” datasets that I will henceforth work with look
+<p>For both, I will use the ready-made datasets included in the package.
+For more information on how they were created, click <a href="https://github.com/valentinsvelev/gglyph/tree/main/data-raw" class="external-link">here</a>.</p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pisa_2022</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">sipri_milex_1995_2023</span><span class="op">)</span></span></code></pre></div>
+<p>This is what the two datasets that I will henceforth work with look
 like: <br></p>
 <table class="table table" style="font-size: 12px; width: auto !important; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
@@ -2917,46 +2823,28 @@ like: <br></p>
 </caption>
 <thead><tr>
 <th style="text-align:left;">
-country
+from
 </th>
 <th style="text-align:left;">
-cat1
+to
 </th>
 <th style="text-align:left;">
-cat2
+group
 </th>
 <th style="text-align:right;">
-p_value
-</th>
-<th style="text-align:left;">
-direction
-</th>
-<th style="text-align:right;">
-start
-</th>
-<th style="text-align:right;">
-end
+sig
 </th>
 </tr></thead>
 <tbody>
 <tr>
 <td style="text-align:left;">
+ISCED &gt;=6
+</td>
+<td style="text-align:left;">
+ISCED &lt;=1
+</td>
+<td style="text-align:left;">
 Austria
-</td>
-<td style="text-align:left;">
-ISCED 2-3.3
-</td>
-<td style="text-align:left;">
-&lt; ISCED 2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-less
-</td>
-<td style="text-align:right;">
-1
 </td>
 <td style="text-align:right;">
 1
@@ -2964,22 +2852,13 @@ less
 </tr>
 <tr>
 <td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:left;">
+ISCED &lt;=1
+</td>
+<td style="text-align:left;">
 Austria
-</td>
-<td style="text-align:left;">
-ISCED 3.4-4
-</td>
-<td style="text-align:left;">
-&lt; ISCED 2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-less
-</td>
-<td style="text-align:right;">
-2
 </td>
 <td style="text-align:right;">
 1
@@ -2987,22 +2866,13 @@ less
 </tr>
 <tr>
 <td style="text-align:left;">
+ISCED 3
+</td>
+<td style="text-align:left;">
+ISCED &lt;=1
+</td>
+<td style="text-align:left;">
 Austria
-</td>
-<td style="text-align:left;">
-ISCED 5-6
-</td>
-<td style="text-align:left;">
-&lt; ISCED 2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-less
-</td>
-<td style="text-align:right;">
-3
 </td>
 <td style="text-align:right;">
 1
@@ -3010,22 +2880,13 @@ less
 </tr>
 <tr>
 <td style="text-align:left;">
+ISCED 4&amp;5
+</td>
+<td style="text-align:left;">
+ISCED &lt;=1
+</td>
+<td style="text-align:left;">
 Austria
-</td>
-<td style="text-align:left;">
-ISCED 7-8
-</td>
-<td style="text-align:left;">
-&lt; ISCED 2
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-less
-</td>
-<td style="text-align:right;">
-4
 </td>
 <td style="text-align:right;">
 1
@@ -3033,48 +2894,30 @@ less
 </tr>
 <tr>
 <td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:left;">
+ISCED &gt;=6
+</td>
+<td style="text-align:left;">
 Austria
 </td>
-<td style="text-align:left;">
-ISCED 3.4-4
-</td>
-<td style="text-align:left;">
-ISCED 2-3.3
-</td>
 <td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-less
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-2
+0
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
+ISCED 3
+</td>
+<td style="text-align:left;">
+ISCED &gt;=6
+</td>
+<td style="text-align:left;">
 Austria
 </td>
-<td style="text-align:left;">
-ISCED 5-6
-</td>
-<td style="text-align:left;">
-ISCED 2-3.3
-</td>
 <td style="text-align:right;">
-1
-</td>
-<td style="text-align:left;">
-less
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
-2
+0
 </td>
 </tr>
 </tbody>
@@ -3085,165 +2928,81 @@ less
 MilEx)</span>
 </caption>
 <thead><tr>
-<th style="text-align:right;">
-Year
+<th style="text-align:left;">
+from
 </th>
 <th style="text-align:left;">
-Country1
-</th>
-<th style="text-align:left;">
-Country2
+to
 </th>
 <th style="text-align:right;">
-Spending_Country1
-</th>
-<th style="text-align:right;">
-Spending_Country2
-</th>
-<th style="text-align:left;">
-Start
-</th>
-<th style="text-align:left;">
-End
+group
 </th>
 </tr></thead>
 <tbody>
 <tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+India
+</td>
 <td style="text-align:right;">
 1995
 </td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
-<td style="text-align:right;">
-12385
-</td>
-<td style="text-align:right;">
-9754
-</td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
 </tr>
 <tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+India
+</td>
 <td style="text-align:right;">
 1999
 </td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
-<td style="text-align:right;">
-20474
-</td>
-<td style="text-align:right;">
-13896
-</td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
 </tr>
 <tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+India
+</td>
 <td style="text-align:right;">
 2003
 </td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
-<td style="text-align:right;">
-33144
-</td>
-<td style="text-align:right;">
-16334
-</td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
 </tr>
 <tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+India
+</td>
 <td style="text-align:right;">
 2007
 </td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
-<td style="text-align:right;">
-62137
-</td>
-<td style="text-align:right;">
-28255
-</td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
 </tr>
 <tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+India
+</td>
 <td style="text-align:right;">
 2011
 </td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
-<td style="text-align:right;">
-125286
-</td>
-<td style="text-align:right;">
-49634
-</td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
 </tr>
 <tr>
+<td style="text-align:left;">
+China
+</td>
+<td style="text-align:left;">
+India
+</td>
 <td style="text-align:right;">
 2015
-</td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
-</td>
-<td style="text-align:right;">
-196539
-</td>
-<td style="text-align:right;">
-51295
-</td>
-<td style="text-align:left;">
-China
-</td>
-<td style="text-align:left;">
-India
 </td>
 </tr>
 </tbody>
@@ -3251,41 +3010,41 @@ India
 <p>Compared with after using the the functions
 <code><a href="../reference/process_data_statistical.html">process_data_statistical()</a></code> or
 <code><a href="../reference/process_data_general.html">process_data_general()</a></code>:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Process the PISA data (statistical data)</span></span>
 <span><span class="co">## Grouped data</span></span>
 <span><span class="va">processed_data_pisa_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_data_statistical.html">process_data_statistical</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">pisa2022_ttests</span>,</span>
-<span>  from <span class="op">=</span> <span class="st">"cat1"</span>,</span>
-<span>  to <span class="op">=</span> <span class="st">"cat2"</span>,</span>
-<span>  sig <span class="op">=</span> <span class="st">"p_value"</span>,</span>
-<span>  group <span class="op">=</span> <span class="st">"country"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">pisa_2022</span>,</span>
+<span>  from <span class="op">=</span> <span class="st">"from"</span>,</span>
+<span>  to <span class="op">=</span> <span class="st">"to"</span>,</span>
+<span>  sig <span class="op">=</span> <span class="st">"sig"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"group"</span>,</span>
 <span>  thresh <span class="op">=</span> <span class="fl">0.05</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Non-grouped data</span></span>
 <span><span class="va">processed_data_pisa</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_data_statistical.html">process_data_statistical</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">pisa2022_ttests</span><span class="op">[</span><span class="va">pisa2022_ttests</span><span class="op">$</span><span class="va">country</span> <span class="op">==</span> <span class="st">"Germany"</span>,<span class="op">]</span>,</span>
-<span>  from <span class="op">=</span> <span class="st">"cat1"</span>,</span>
-<span>  to <span class="op">=</span> <span class="st">"cat2"</span>,</span>
-<span>  sig <span class="op">=</span> <span class="st">"p_value"</span>,</span>
+<span>  data <span class="op">=</span> <span class="va">pisa_2022</span><span class="op">[</span><span class="va">pisa_2022</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="st">"Germany"</span>,<span class="op">]</span>,</span>
+<span>  from <span class="op">=</span> <span class="st">"from"</span>,</span>
+<span>  to <span class="op">=</span> <span class="st">"to"</span>,</span>
+<span>  sig <span class="op">=</span> <span class="st">"sig"</span>,</span>
 <span>  thresh <span class="op">=</span> <span class="fl">0.05</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Process the SIPRI MilEx data (non-statistical data)</span></span>
 <span><span class="co">## Grouped data</span></span>
 <span><span class="va">processed_data_sipri_group</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_data_general.html">process_data_general</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">sipri_dat_plot</span>,</span>
-<span>  from <span class="op">=</span> <span class="st">"Start"</span>,</span>
-<span>  to <span class="op">=</span> <span class="st">"End"</span>,</span>
-<span>  group <span class="op">=</span> <span class="st">"Year"</span></span>
+<span>  data <span class="op">=</span> <span class="va">sipri_milex_1995_2023</span>,</span>
+<span>  from <span class="op">=</span> <span class="st">"from"</span>,</span>
+<span>  to <span class="op">=</span> <span class="st">"to"</span>,</span>
+<span>  group <span class="op">=</span> <span class="st">"group"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Non-grouped data</span></span>
 <span><span class="va">processed_data_sipri</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/process_data_general.html">process_data_general</a></span><span class="op">(</span></span>
-<span>  data <span class="op">=</span> <span class="va">sipri_dat_plot</span><span class="op">[</span><span class="va">sipri_dat_plot</span><span class="op">$</span><span class="va">Year</span> <span class="op">==</span> <span class="st">"2023"</span>,<span class="op">]</span>,</span>
-<span>  from <span class="op">=</span> <span class="st">"Start"</span>,</span>
-<span>  to <span class="op">=</span> <span class="st">"End"</span></span>
+<span>  data <span class="op">=</span> <span class="va">sipri_milex_1995_2023</span><span class="op">[</span><span class="va">sipri_milex_1995_2023</span><span class="op">$</span><span class="va">group</span> <span class="op">==</span> <span class="st">"2023"</span>,<span class="op">]</span>,</span>
+<span>  from <span class="op">=</span> <span class="st">"from"</span>,</span>
+<span>  to <span class="op">=</span> <span class="st">"to"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 <p>This is what the processed datasets look like:</p>
 <p>(Note: I will only show the PISA dataset) <br></p>
@@ -3301,20 +3060,8 @@ to
 <th style="text-align:left;">
 from
 </th>
-<th style="text-align:left;">
-country
-</th>
 <th style="text-align:right;">
 significance
-</th>
-<th style="text-align:left;">
-direction
-</th>
-<th style="text-align:right;">
-start
-</th>
-<th style="text-align:right;">
-end
 </th>
 <th style="text-align:right;">
 angle.from
@@ -3356,25 +3103,13 @@ y
 <tbody>
 <tr>
 <td style="text-align:left;">
-&lt; ISCED 2
+ISCED &gt;=6
 </td>
 <td style="text-align:left;">
-ISCED 2-3.3
-</td>
-<td style="text-align:left;">
-Germany
+ISCED &lt;=1
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
 </td>
 <td style="text-align:right;">
 1.571
@@ -3386,10 +3121,10 @@ greater
 1.000
 </td>
 <td style="text-align:right;">
--3.46
+0.314
 </td>
 <td style="text-align:right;">
--0.951
+0.951
 </td>
 <td style="text-align:right;">
 0.309
@@ -3415,25 +3150,22 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-&lt; ISCED 2
+ISCED &gt;=6
 </td>
 <td style="text-align:left;">
-ISCED 3.4-4
-</td>
-<td style="text-align:left;">
-Germany
+ISCED 2
 </td>
 <td style="text-align:right;">
 0
 </td>
-<td style="text-align:left;">
-greater
+<td style="text-align:right;">
+-0.942
 </td>
 <td style="text-align:right;">
-1
+0.588
 </td>
 <td style="text-align:right;">
-2
+-0.809
 </td>
 <td style="text-align:right;">
 0.314
@@ -3444,15 +3176,6 @@ greater
 <td style="text-align:right;">
 0.309
 </td>
-<td style="text-align:right;">
--3.46
-</td>
-<td style="text-align:right;">
--0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
 <td style="text-align:left;">
 edge
 </td>
@@ -3474,25 +3197,13 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-&lt; ISCED 2
+ISCED &gt;=6
 </td>
 <td style="text-align:left;">
-ISCED 7-8
-</td>
-<td style="text-align:left;">
-Germany
+ISCED 3
 </td>
 <td style="text-align:right;">
 0
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4
 </td>
 <td style="text-align:right;">
 -2.199
@@ -3504,69 +3215,10 @@ greater
 -0.809
 </td>
 <td style="text-align:right;">
--3.46
+0.314
 </td>
 <td style="text-align:right;">
--0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-&lt; ISCED 2
-</td>
-<td style="text-align:left;">
-ISCED 5-6
-</td>
-<td style="text-align:left;">
-Germany
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
--0.942
-</td>
-<td style="text-align:right;">
-0.588
-</td>
-<td style="text-align:right;">
--0.809
-</td>
-<td style="text-align:right;">
--3.46
-</td>
-<td style="text-align:right;">
--0.951
+0.951
 </td>
 <td style="text-align:right;">
 0.309
@@ -3592,25 +3244,22 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-ISCED 2-3.3
+ISCED &gt;=6
 </td>
 <td style="text-align:left;">
-ISCED 3.4-4
-</td>
-<td style="text-align:left;">
-Germany
+ISCED 4&amp;5
 </td>
 <td style="text-align:right;">
 0
 </td>
-<td style="text-align:left;">
-greater
+<td style="text-align:right;">
+-3.456
 </td>
 <td style="text-align:right;">
-2
+-0.951
 </td>
 <td style="text-align:right;">
-2
+0.309
 </td>
 <td style="text-align:right;">
 0.314
@@ -3621,14 +3270,52 @@ greater
 <td style="text-align:right;">
 0.309
 </td>
+<td style="text-align:left;">
+edge
+</td>
 <td style="text-align:right;">
-1.57
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:left;">
+ISCED &lt;=1
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.571
 </td>
 <td style="text-align:right;">
 0.000
 </td>
 <td style="text-align:right;">
 1.000
+</td>
+<td style="text-align:right;">
+-0.942
+</td>
+<td style="text-align:right;">
+0.588
+</td>
+<td style="text-align:right;">
+-0.809
 </td>
 <td style="text-align:left;">
 edge
@@ -3651,43 +3338,31 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-ISCED 2-3.3
+ISCED 3
 </td>
 <td style="text-align:left;">
-ISCED 5-6
-</td>
-<td style="text-align:left;">
-Germany
+ISCED &lt;=1
 </td>
 <td style="text-align:right;">
 0
 </td>
-<td style="text-align:left;">
-greater
-</td>
 <td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-3
-</td>
-<td style="text-align:right;">
--0.942
-</td>
-<td style="text-align:right;">
-0.588
-</td>
-<td style="text-align:right;">
--0.809
-</td>
-<td style="text-align:right;">
-1.57
+1.571
 </td>
 <td style="text-align:right;">
 0.000
 </td>
 <td style="text-align:right;">
 1.000
+</td>
+<td style="text-align:right;">
+-2.199
+</td>
+<td style="text-align:right;">
+-0.588
+</td>
+<td style="text-align:right;">
+-0.809
 </td>
 <td style="text-align:left;">
 edge
@@ -3728,15 +3403,6 @@ from
 <th style="text-align:right;">
 significance
 </th>
-<th style="text-align:left;">
-direction
-</th>
-<th style="text-align:right;">
-start
-</th>
-<th style="text-align:right;">
-end
-</th>
 <th style="text-align:right;">
 angle.from
 </th>
@@ -3777,84 +3443,16 @@ y
 <tbody>
 <tr>
 <td style="text-align:left;">
-&lt; ISCED 2
+ISCED &lt;=1
 </td>
 <td style="text-align:left;">
-Austria
+Czech Republic
 </td>
 <td style="text-align:left;">
-ISCED 2-3.3
+ISCED 2
 </td>
 <td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1.571
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
--3.46
-</td>
-<td style="text-align:right;">
--0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-&lt; ISCED 2
-</td>
-<td style="text-align:left;">
-Austria
-</td>
-<td style="text-align:left;">
-ISCED 5-6
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-3
+0.019
 </td>
 <td style="text-align:right;">
 -0.942
@@ -3866,13 +3464,13 @@ greater
 -0.809
 </td>
 <td style="text-align:right;">
--3.46
+1.571
 </td>
 <td style="text-align:right;">
--0.951
+0.000
 </td>
 <td style="text-align:right;">
-0.309
+1.000
 </td>
 <td style="text-align:left;">
 edge
@@ -3895,25 +3493,16 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-&lt; ISCED 2
+ISCED &gt;=6
 </td>
 <td style="text-align:left;">
 Austria
 </td>
 <td style="text-align:left;">
-ISCED 7-8
+ISCED 3
 </td>
 <td style="text-align:right;">
 0.000
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-4
 </td>
 <td style="text-align:right;">
 -2.199
@@ -3925,10 +3514,10 @@ greater
 -0.809
 </td>
 <td style="text-align:right;">
--3.46
+0.314
 </td>
 <td style="text-align:right;">
--0.951
+0.951
 </td>
 <td style="text-align:right;">
 0.309
@@ -3954,40 +3543,31 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-&lt; ISCED 2
+ISCED &gt;=6
 </td>
 <td style="text-align:left;">
 Austria
 </td>
 <td style="text-align:left;">
-ISCED 3.4-4
+ISCED 2
 </td>
 <td style="text-align:right;">
 0.000
 </td>
-<td style="text-align:left;">
-greater
+<td style="text-align:right;">
+-0.942
 </td>
 <td style="text-align:right;">
-1
+0.588
 </td>
 <td style="text-align:right;">
-2
+-0.809
 </td>
 <td style="text-align:right;">
 0.314
 </td>
 <td style="text-align:right;">
 0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:right;">
--3.46
-</td>
-<td style="text-align:right;">
--0.951
 </td>
 <td style="text-align:right;">
 0.309
@@ -4013,84 +3593,16 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-&lt; ISCED 2
+ISCED &gt;=6
 </td>
 <td style="text-align:left;">
-Belgium
+Austria
 </td>
 <td style="text-align:left;">
-ISCED 3.4-4
+ISCED &lt;=1
 </td>
 <td style="text-align:right;">
 0.000
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-2
-</td>
-<td style="text-align:right;">
-0.314
-</td>
-<td style="text-align:right;">
-0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:right;">
--3.46
-</td>
-<td style="text-align:right;">
--0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-&lt; ISCED 2
-</td>
-<td style="text-align:left;">
-Belgium
-</td>
-<td style="text-align:left;">
-ISCED 2-3.3
-</td>
-<td style="text-align:right;">
-0.004
-</td>
-<td style="text-align:left;">
-greater
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-1
 </td>
 <td style="text-align:right;">
 1.571
@@ -4102,10 +3614,110 @@ greater
 1.000
 </td>
 <td style="text-align:right;">
--3.46
+0.314
+</td>
+<td style="text-align:right;">
+0.951
+</td>
+<td style="text-align:right;">
+0.309
+</td>
+<td style="text-align:left;">
+edge
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED &gt;=6
+</td>
+<td style="text-align:left;">
+Austria
+</td>
+<td style="text-align:left;">
+ISCED 4&amp;5
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+-3.456
 </td>
 <td style="text-align:right;">
 -0.951
+</td>
+<td style="text-align:right;">
+0.309
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+<td style="text-align:right;">
+0.951
+</td>
+<td style="text-align:right;">
+0.309
+</td>
+<td style="text-align:left;">
+edge
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED &gt;=6
+</td>
+<td style="text-align:left;">
+Belgium
+</td>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+-0.942
+</td>
+<td style="text-align:right;">
+0.588
+</td>
+<td style="text-align:right;">
+-0.809
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+<td style="text-align:right;">
+0.951
 </td>
 <td style="text-align:right;">
 0.309
@@ -4132,27 +3744,27 @@ NA
 </tbody>
 </table>
 <p>With this data the following plots can be created:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_pisa</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/glyphs_pisa_base-1.png" width="768"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_pisa_group</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/glyphs_pisa_base-2.png" width="768"></p>
 <p>And for the SIPRI dataset:</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_sipri</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/glyphs_sipri_base-1.png" width="768"></p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_sipri_group</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/glyphs_sipri_base-2.png" width="768"></p>
 <p>After a bit of polishing, they can look like this:</p>
-<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_pisa</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
 <span>    node_colour <span class="op">=</span> <span class="st">"black"</span>,</span>
@@ -4160,19 +3772,20 @@ NA
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"PISA 2022 Parental Education"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/glyphs_pisa_polished-1.png" width="768"></p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_pisa_group</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
 <span>    node_fill <span class="op">=</span> <span class="va">rainbow</span>,</span>
 <span>    node_colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    edge_fill <span class="op">=</span> <span class="va">rainbow</span>,</span>
-<span>    label_size <span class="op">=</span> <span class="fl">3.75</span></span>
+<span>    label_size <span class="op">=</span> <span class="fl">3.75</span>,</span>
+<span>    group_label_size <span class="op">=</span> <span class="fl">9</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"PISA 2022 Parental Education"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/glyphs_pisa_polished-2.png" width="768"></p>
 <p>And for the SIPRI dataset:</p>
-<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_sipri</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
 <span>    node_colour <span class="op">=</span> <span class="st">"black"</span>,</span>
@@ -4181,7 +3794,7 @@ NA
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"SIPRI Military Expenditures"</span><span class="op">)</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/glyphs_sipri_polished-1.png" width="768"></p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_sipri_group</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
 <span>    node_fill <span class="op">=</span> <span class="va">viridis</span>,</span>
@@ -4197,7 +3810,7 @@ NA
 </h2>
 <p>You can save the plot using <code><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave()</a></code> from
 <code>ggplot2</code>:</p>
-<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span>filename <span class="op">=</span> <span class="st">"plot.pdf"</span>, plot <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/get_last_plot.html" class="external-link">last_plot</a></span><span class="op">(</span><span class="op">)</span>, width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">6</span>, dpi <span class="op">=</span> <span class="fl">300</span><span class="op">)</span></span></code></pre></div>
 <p>Finally, if you find any bugs or if you have any additional features
 that you would like me to add, please let me know at <a href="mailto:valentin.velev@uni-konstanz.de">valentin.velev@uni-konstanz.de</a>.</p>
