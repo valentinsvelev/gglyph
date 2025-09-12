@@ -43,7 +43,9 @@ library(ggplot2)
 
 data(pisa_2022)
 
-ggplot(data = pisa_2022) +
+data <- process_data_statistical(pisa_2022)
+
+ggplot(data = data) +
   geom_glyph()
 ```
 
