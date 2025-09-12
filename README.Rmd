@@ -36,29 +36,27 @@ You can use the package with real data as follows:
 
 ```r
 library(gglyph)
+library(ggplot2)
 
 data(pisa_2022)
 
 ggplot(data = pisa_2022) +
-  geom_glpyh()
+  geom_glyph()
 ```
 
 Or by first generating mock data:
 
 ```r
 library(gglyph)
+library(ggplot2)
 
 data <- generate_mock_data(n_nodes = 5, n_edges = 10)
 
 ggplot(data = data) +
-  geom_glpyh()
+  geom_glyph()
 ```
 
 ## Citation
-
-```r
-citation("gglyph")
-```
 
 To cite the package use:
 
