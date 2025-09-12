@@ -37,9 +37,9 @@ You can use the package with real data as follows:
 ```r
 library(gglyph)
 
-data <- process_data_statistical(df)
+data(pisa_2022)
 
-ggplot(data = data) +
+ggplot(data = pisa_2022) +
   geom_glpyh()
 ```
 

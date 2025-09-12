@@ -11,43 +11,26 @@
 #' @return A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
 #' @export
 #' @examples
-#' \donttest{
-#' ####################
-#' # Create mock data #
-#' ####################
+#' data(pisa_2022)
 #'
-#' data <- data.frame(
-#'   from = sample(LETTERS, 5),
-#'   to = sample(LETTERS, 5),
-#'   group = sample(LETTERS, 5),
-#'   significance = rep(0.05, 5)
-#' )
-#'
-#' ########################
-#' # For non-grouped data #
-#' ########################
-#'
+#' # For non-grouped data
 #' processed_data <- process_data_statistical(
-#'   data = data,
+#'   data = pisa_2022,
 #'   from = "from",
 #'   to = "to",
-#'   sig = "significance",
+#'   sig = "sig",
 #'   thresh = 0.05
 #' )
 #'
-#' ####################
-#' # For grouped data #
-#' ####################
-#'
+#' # For grouped data
 #' processed_data <- process_data_statistical(
-#'   data = data,
+#'   data = pisa_2022,
 #'   from = "from",
 #'   to = "to",
-#'   sig = "significance",
+#'   sig = "sig",
 #'   group = "group",
 #'   thresh = 0.05
 #' )
-#' }
 process_data_statistical <- function(
     data,
     from,
@@ -129,6 +112,9 @@ process_data_statistical <- function(
 
   # Combine the DataFrames and return it
   combined_df <- dplyr::bind_rows(edges, node_positions)
+
+  # Remove group variable if it exists
+  if (is.null(group) & "group" %in% names(combined_df)) {combined_df$group <- NULL}
 
   return(combined_df)
 }

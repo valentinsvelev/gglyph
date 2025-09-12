@@ -19,6 +19,7 @@
 - Added a reference in the DESCRIPTION file.
 - Fixed examples ("dontrun" vs. "donttest").
 - Added resets of user's options and par in vignette.
+- Changed the datasets so that they can be used without wrangling.
 
 ### Resubmission #1 (08.09.2025)
 

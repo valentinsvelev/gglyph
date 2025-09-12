@@ -10,11 +10,7 @@
 #' @return A data frame with mock data for nodes and edges.
 #' @export
 #' @examples
-#' \donttest{
-#' ########################
-#' # For non-grouped data #
-#' ########################
-#'
+#' # For non-grouped data
 #' mock_data <- generate_mock_data(
 #'   n_nodes = 5,
 #'   n_edges = 7,
@@ -23,10 +19,7 @@
 #'   p_threshold = 0.05
 #' )
 #'
-#' ####################
-#' # For grouped data #
-#' ####################
-#'
+#' # For grouped data
 #' mock_data <- generate_mock_data(
 #'   n_nodes = 5,
 #'   n_edges = 7,
@@ -34,7 +27,6 @@
 #'   statistical = TRUE,
 #'   p_threshold = 0.05
 #' )
-#' }
 generate_mock_data <- function(
     n_nodes = 5,
     n_edges = 7,
@@ -84,7 +76,6 @@ generate_mock_data <- function(
 
     # Add statistical values
     if (statistical) {edges$significance <- runif(n_edges, p_threshold - 0.05, p_threshold + 0.05)}
-    #else {edges$significance <- NA_real_}
 
     angles <- seq(start_angle, start_angle - 2 * pi, length.out = n_nodes + 1)[-n_nodes - 1]
 

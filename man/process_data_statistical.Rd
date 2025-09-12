@@ -26,41 +26,24 @@ A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyp
 Prepare statistical data for plotting with gglyph::geom_glyph().
 }
 \examples{
-\donttest{
-####################
-# Create mock data #
-####################
+data(pisa_2022)
 
-data <- data.frame(
-  from = sample(LETTERS, 5),
-  to = sample(LETTERS, 5),
-  group = sample(LETTERS, 5),
-  significance = rep(0.05, 5)
-)
-
-########################
-# For non-grouped data #
-########################
-
+# For non-grouped data
 processed_data <- process_data_statistical(
-  data = data,
+  data = pisa_2022,
   from = "from",
   to = "to",
-  sig = "significance",
+  sig = "sig",
   thresh = 0.05
 )
 
-####################
-# For grouped data #
-####################
-
+# For grouped data
 processed_data <- process_data_statistical(
-  data = data,
+  data = pisa_2022,
   from = "from",
   to = "to",
-  sig = "significance",
+  sig = "sig",
   group = "group",
   thresh = 0.05
 )
-}
 }

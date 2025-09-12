@@ -58,8 +58,8 @@ reference:
       - generate_mock_data
   - title: Datasets
     contents:
-      - pisa2022_subset
-      - sipri_milex1949_2023_subset
+      - pisa_2022
+      - sipri_milex_1995_2023
 
 # Vignettes listed on the "Articles" page (built from vignettes/*.Rmd)
 articles:

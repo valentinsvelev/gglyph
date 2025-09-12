@@ -30,11 +30,7 @@ A data frame with mock data for nodes and edges.
 Generates custom mock data to be passed to gglyph::geom_glyph().
 }
 \examples{
-\donttest{
-########################
-# For non-grouped data #
-########################
-
+# For non-grouped data
 mock_data <- generate_mock_data(
   n_nodes = 5,
   n_edges = 7,
@@ -43,10 +39,7 @@ mock_data <- generate_mock_data(
   p_threshold = 0.05
 )
 
-####################
-# For grouped data #
-####################
-
+# For grouped data
 mock_data <- generate_mock_data(
   n_nodes = 5,
   n_edges = 7,
@@ -54,5 +47,4 @@ mock_data <- generate_mock_data(
   statistical = TRUE,
   p_threshold = 0.05
 )
-}
 }

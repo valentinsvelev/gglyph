@@ -385,11 +385,7 @@ GeomGlyphNode <- ggproto("GeomGlyphNode", Geom,
 #' @seealso [ggplot2::ggsave()]
 #' @export
 #' @examples
-#' \donttest{
-#' ##################################
-#' # For non-grouped/-facetted plot #
-#' ##################################
-#'
+#' # For non-grouped/-facetted plot
 #' data <- gglyph::generate_mock_data(n_groups = 1)
 #'
 #' ggplot2::ggplot(data = data) +
@@ -402,10 +398,7 @@ GeomGlyphNode <- ggproto("GeomGlyphNode", Geom,
 #'   gglyph::geom_glyph(edge_colour = "purple", node_colour = "blue") +
 #'   ggplot2::labs(title = "A beautiful glyph")
 #'
-#' #############################
-#' # For grouped/facetted plot #
-#' #############################
-#'
+#' # For grouped/facetted plot
 #' data <- gglyph::generate_mock_data(n_groups = 3)
 #'
 #' ggplot2::ggplot(data = data) +
@@ -420,7 +413,6 @@ GeomGlyphNode <- ggproto("GeomGlyphNode", Geom,
 #'   gglyph::geom_glyph(edge_colour = viridis::viridis, node_colour = viridis::viridis) +
 #'   ggplot2::facet_wrap(~ group) +
 #'   ggplot2::labs(title = "Beautiful glyphs")
-#'   }
 geom_glyph <- function(
     mapping = NULL,
     data = NULL,

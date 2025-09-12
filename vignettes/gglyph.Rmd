@@ -55,8 +55,8 @@ knitr::opts_chunk$set(
 )
 
 # Reset options and par
-default_opts <- options()
-default_par <- par()
+default_opts <- options(digits = 3)
+default_par <- par(mfrow = c(1,2))
 ```
 
 ```{r equivalence_table, echo=FALSE}
@@ -404,7 +404,7 @@ discriminate
 
 will appear. This can safely be ignored.
 
-```{r example_glyphs_additional}
+```{r example_glyphs_additional, warning=FALSE}
 # Non-grouped
 ggplot(data = mock_data) +
   geom_glyph(
@@ -486,122 +486,20 @@ For the PISA 2022 dataset, I will use the country variable (CNT), the variable i
 
 For the SIPRI dataset, I will use the absolute amount of military expenditures in current US dollars.
 
-<br>
-<details>
-<summary>Show/Hide Code</summary>
+For both, I will use the ready-made datasets included in the package. For more information on how they were created, click [here](https://github.com/valentinsvelev/gglyph/tree/main/data-raw).
 
-```{r load_and_wrangle_data, message=FALSE, warning=FALSE}
-# Load both datasets
-data("pisa2022_subset")
-data("sipri_milex1949_2023_subset")
-
-# Wrangle the SIPRI dataset 1/2
-country_pairs <- expand.grid(
-  Year  = c(1995, 1999, 2003, 2007, 2011, 2015, 2019, 2023),
-  Country1 = unique(sipri_milex1949_2023_subset$Country),
-  Country2 = unique(sipri_milex1949_2023_subset$Country)
-  ) %>%
-  filter(Country1 != Country2) %>%
-  rowwise() %>%
-  filter(as.character(Country1) < as.character(Country2))
-
-# Wrangle the SIPRI dataset 2/2
-sipri_dat_plot <- left_join(country_pairs, sipri_milex1949_2023_subset, by = c("Country1" = "Country", "Year")) %>%
-  dplyr::rename(Spending_Country1 = Spending) %>%
-  left_join(sipri_milex1949_2023_subset, by = c("Country2" = "Country", "Year")) %>%
-  dplyr::rename(Spending_Country2 = Spending) %>%
-  filter(Spending_Country1 > 5000 & Spending_Country2 > 5000) %>%
-  mutate(
-    Start = case_when(
-      Spending_Country1 > Spending_Country2 ~ Country1,
-      Spending_Country1 < Spending_Country2 ~ Country2
-    ),
-    End = case_when(
-      Spending_Country1 > Spending_Country2 ~ Country2,
-      Spending_Country1 < Spending_Country2 ~ Country1
-    ))
+```{r load_data_from_pkg}
+data(pisa_2022)
+data(sipri_milex_1995_2023)
 ```
 
-Now, I will conduct the statistical analyses (grouped pairwise t-tests) using (a subset of) the PISA 2022 dataset.
-
-```{r statistical_analyses}
-# Direction: significantly less than
-pisa2022_ttest_less <- pisa2022_subset %>%
-  group_by(CNT) %>%
-  summarise(
-    results = list(
-      pairwise.t.test(
-        x = MATH,
-        g = HISCED,
-        p.adjust.method = "bonferroni",
-        alternative = "less"
-      )
-    ),
-    .groups = "drop"
-  )
-
-# Direction: significantly greater than
-pisa2022_ttest_greater <- pisa2022_subset %>%
-  group_by(CNT) %>%
-  summarise(
-    results = list(
-      pairwise.t.test(
-        x = MATH,
-        g = HISCED,
-        p.adjust.method = "bonferroni",
-        alternative = "greater"
-      )
-    ),
-    .groups = "drop"
-  )
-```
-
-The resulting objects are DataFrames with nested lists, meaning they need to be transformed:
-
-```{r wrangle_stat_res, warning=FALSE}
-# Function for tidying up the statistical analysis results
-ttests_to_long <- function(ttests, group) {
-  ttests %>%
-    rowwise() %>%
-    mutate(
-      p_value_matrix = list(
-        if (!is.null(results) && !is.null(results$p.value)) results$p.value else NULL
-      )
-    ) %>%
-    filter(!is.null(p_value_matrix)) %>%
-    mutate(
-      tidy_results = list(as.data.frame(as.table(p_value_matrix)))
-    ) %>%
-    unnest(cols = tidy_results) %>%
-    rename(country = group, p_value = Freq) %>%
-    dplyr::select(country, cat1 = Var1, cat2 = Var2, p_value)
-}
-
-# Tidy up PISA
-pisa2022_ttests <- bind_rows(
-  ttests_to_long(ttests = pisa2022_ttest_less, group = "CNT") %>%
-    drop_na(p_value) %>%
-    mutate(direction = "less"),
-  ttests_to_long(ttests = pisa2022_ttest_greater, group = "CNT") %>%
-    drop_na(p_value) %>%
-    mutate(direction = "greater")
-  ) %>%
-  mutate(
-    start = ifelse(direction == "less", cat1, cat2),
-    end = ifelse(direction == "less", cat2, cat1)
-  )
-```
-
-</details>
-<br>
-
-This is what the "raw" datasets that I will henceforth work with look like: <br>
+This is what the two datasets that I will henceforth work with look like: <br>
 
 ```{r, echo=FALSE}
-kable(pisa2022_ttests %>% head(), "html", caption = "<span style='font-size: 0.9em;'>Table 6: Raw statistical data (PISA)</span>", booktabs = TRUE) %>%
+kable(pisa_2022 %>% head(), "html", caption = "<span style='font-size: 0.9em;'>Table 6: Raw statistical data (PISA)</span>", booktabs = TRUE) %>%
   kable_styling(full_width = FALSE, font_size = 12)
 
-kable(sipri_dat_plot %>% head(), "html", caption = "<span style='font-size: 0.9em;'>Table 7: Raw non-statistical data (SIPRI MilEx)</span>", booktabs = TRUE) %>%
+kable(sipri_milex_1995_2023 %>% head(), "html", caption = "<span style='font-size: 0.9em;'>Table 7: Raw non-statistical data (SIPRI MilEx)</span>", booktabs = TRUE) %>%
   kable_styling(full_width = FALSE, font_size = 12)
 ```
 
@@ -611,37 +509,37 @@ Compared with after using the the functions `process_data_statistical()` or `pro
 # Process the PISA data (statistical data)
 ## Grouped data
 processed_data_pisa_group <- process_data_statistical(
-  data = pisa2022_ttests,
-  from = "cat1",
-  to = "cat2",
-  sig = "p_value",
-  group = "country",
+  data = pisa_2022,
+  from = "from",
+  to = "to",
+  sig = "sig",
+  group = "group",
   thresh = 0.05
 )
 
 ## Non-grouped data
 processed_data_pisa <- process_data_statistical(
-  data = pisa2022_ttests[pisa2022_ttests$country == "Germany",],
-  from = "cat1",
-  to = "cat2",
-  sig = "p_value",
+  data = pisa_2022[pisa_2022$group == "Germany",],
+  from = "from",
+  to = "to",
+  sig = "sig",
   thresh = 0.05
 )
 
 # Process the SIPRI MilEx data (non-statistical data)
 ## Grouped data
 processed_data_sipri_group <- process_data_general(
-  data = sipri_dat_plot,
-  from = "Start",
-  to = "End",
-  group = "Year"
+  data = sipri_milex_1995_2023,
+  from = "from",
+  to = "to",
+  group = "group"
 )
 
 ## Non-grouped data
 processed_data_sipri <- process_data_general(
-  data = sipri_dat_plot[sipri_dat_plot$Year == "2023",],
-  from = "Start",
-  to = "End"
+  data = sipri_milex_1995_2023[sipri_milex_1995_2023$group == "2023",],
+  from = "from",
+  to = "to"
 )
 ```
 
@@ -694,7 +592,8 @@ ggplot(data = processed_data_pisa_group) +
     node_fill = rainbow,
     node_colour = "black",
     edge_fill = rainbow,
-    label_size = 3.75
+    label_size = 3.75,
+    group_label_size = 9
   ) +
   facet_wrap(~ group) +
   labs(title = "PISA 2022 Parental Education")
@@ -734,4 +633,3 @@ Finally, if you find any bugs or if you have any additional features that you wo
 options(default_opts)
 par(default_par)
 ```
-

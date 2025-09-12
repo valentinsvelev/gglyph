@@ -1,15 +1,16 @@
-#' PISA 2022 Subset
+#' PISA 2022
 #'
-#' A subset from the PISA 2022 data.
+#' Results of pairwise t-tests performed on a subset from the PISA 2022 data.
 #'
 #' @docType data
-#' @name pisa2022_subset
-#' @usage data(pisa2022_subset)
-#' @format A data frame with 189,966 rows and 3 variables:
+#' @name pisa_2022
+#' @usage data(pisa_2022)
+#' @format A data frame with 492 rows and 3 variables:
 #' \describe{
-#'   \item{\code{CNT}}{Country of the respondent (character).}
-#'   \item{\code{HISCED}}{Highest educational level (ISCED) attained by parents of the respondent (integer).}
-#'   \item{\code{MATH}}{Math score of the respondent (numeric).}
+#'   \item{\code{from}}{Category A of educational level (ISCED) attained by the parents of the respondent (character).}
+#'   \item{\code{to}}{Category B of educational level (ISCED) attained by the parents of the respondent (character).}
+#'   \item{\code{group}}{Country of the respondent (character).}
+#'   \item{\code{sig}}{p-value of the pairwise t-test (numeric).}
 #' }
 #' @source
 #' Data obtained from:
@@ -18,28 +19,28 @@
 #' }
 #' Licensed under CC BY 4.0: \url{https://creativecommons.org/licenses/by/4.0/}
 #' @references
-#' Additional references for further reading:
+#' Additional reference(s) for further reading:
 #' \itemize{
 #'   \item OECD (2024). *PISA 2022 Technical Report*. OECD Publishing, Paris. \doi{10.1787/01820d6d-en}
 #' }
 #' @keywords dataset
 #' @examples
-#' data(pisa2022_subset)
-#' head(pisa2022_subset)
+#' data(pisa_2022)
+#' head(pisa_2022)
 NULL
 
-#' SIPRI Military Expenditure 1949-2023 (Subset)
+#' SIPRI Military Expenditure 1995-2023
 #'
 #' A subset of the SIPRI Military Expenditure 1949-2023 data.
 #'
 #' @docType data
-#' @name sipri_milex1949_2023_subset
-#' @usage data(sipri_milex1949_2023_subset)
-#' @format A data frame with 48 rows and 3 variables:
+#' @name sipri_milex_1995_2023
+#' @usage data(sipri_milex_1995_2023)
+#' @format A data frame with 77 rows and 3 variables:
 #' \describe{
-#'   \item{\code{Country}}{Country name (character).}
-#'   \item{\code{Year}}{Year (integer).}
-#'   \item{\code{Spending}}{Military spending in current US dollars (numeric).}
+#'   \item{\code{from}}{Name of country A (character).}
+#'   \item{\code{to}}{Name of country B (character).}
+#'   \item{\code{group}}{Year (numeric).}
 #' }
 #' @source
 #' Data obtained from:
@@ -49,6 +50,6 @@ NULL
 #' Licensed under CC BY 4.0: \url{https://creativecommons.org/licenses/by/4.0/}
 #' @keywords dataset
 #' @examples
-#' data(sipri_milex1949_2023_subset)
-#' head(sipri_milex1949_2023_subset)
+#' data(sipri_milex_1995_2023)
+#' head(sipri_milex_1995_2023)
 NULL

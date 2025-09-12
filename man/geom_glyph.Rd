@@ -81,11 +81,7 @@ A ggplot2 layer with custom network-based graph.
 Create a network-style graph that illustrates directed pairwise relationships using custom edges.
 }
 \examples{
-\donttest{
-##################################
-# For non-grouped/-facetted plot #
-##################################
-
+# For non-grouped/-facetted plot
 data <- gglyph::generate_mock_data(n_groups = 1)
 
 ggplot2::ggplot(data = data) +
@@ -98,10 +94,7 @@ ggplot2::ggplot(data = data) +
   gglyph::geom_glyph(edge_colour = "purple", node_colour = "blue") +
   ggplot2::labs(title = "A beautiful glyph")
 
-#############################
-# For grouped/facetted plot #
-#############################
-
+# For grouped/facetted plot
 data <- gglyph::generate_mock_data(n_groups = 3)
 
 ggplot2::ggplot(data = data) +
@@ -116,7 +109,6 @@ ggplot2::ggplot(data = data) +
   gglyph::geom_glyph(edge_colour = viridis::viridis, node_colour = viridis::viridis) +
   ggplot2::facet_wrap(~ group) +
   ggplot2::labs(title = "Beautiful glyphs")
-  }
 }
 \seealso{
 \code{\link[ggplot2:ggsave]{ggplot2::ggsave()}}
