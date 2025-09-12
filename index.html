@@ -88,7 +88,9 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pisa_2022</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">pisa_2022</span><span class="op">)</span> <span class="op">+</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_data_statistical.html">process_data_statistical</a></span><span class="op">(</span><span class="va">pisa_2022</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p>Or by first generating mock data:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
