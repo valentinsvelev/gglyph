@@ -4,4 +4,4 @@
 
 # gglyph 0.0.0.9000
 
-* Development version (not released to CRAN).
+* Development version (not released on CRAN).

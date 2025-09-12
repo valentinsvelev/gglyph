@@ -12,5 +12,15 @@
 - Reason: builder time verification issue; not package-related.
 
 ## Notes from previous submission
+
+### Resubmission #2 (11.09.2025)
+
+- Fixed the title of the package.
+- Added a reference in the DESCRIPTION file.
+- Fixed examples ("dontrun" vs. "donttest").
+- Added resets of user's options and par in vignette.
+
+### Resubmission #1 (08.09.2025)
+
 - Version number was dev-style (0.0.0.9000). Changed to 0.1.0.
-- Removed broken URL from R/data.R.
+- Removed the broken URL from R/data.R.

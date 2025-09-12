@@ -10,7 +10,7 @@
 #' @return A data frame with mock data for nodes and edges.
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
 #' ########################
 #' # For non-grouped data #
 #' ########################

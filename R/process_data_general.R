@@ -9,7 +9,17 @@
 #' @return A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
 #' @export
 #' @examples
-#' \dontrun{
+#' \donttest{
+#' ####################
+#' # Create mock data #
+#' ####################
+#'
+#' data <- data.frame(
+#'   from = sample(LETTERS, 5),
+#'   to = sample(LETTERS, 5),
+#'   group = sample(LETTERS, 5)
+#' )
+#'
 #' ########################
 #' # For non-grouped data #
 #' ########################

@@ -48,7 +48,15 @@ To begin with, I have created a table table showing the equivalence of `geom_gly
 ```{r setup_knitr, include=FALSE}
 library(knitr)
 
+# Set plot size and quality
+knitr::opts_chunk$set(
+  fig.height = 6,
+  fig.width = 8
+)
 
+# Reset options and par
+default_opts <- options()
+default_par <- par()
 ```
 
 ```{r equivalence_table, echo=FALSE}
@@ -721,3 +729,9 @@ ggsave(filename = "plot.pdf", plot = last_plot(), width = 8, height = 6, dpi = 3
 ```
 
 Finally, if you find any bugs or if you have any additional features that you would like me to add, please let me know at [valentin.velev@uni-konstanz.de](mailto:valentin.velev@uni-konstanz.de).
+
+```{r reset_params, include=FALSE}
+options(default_opts)
+par(default_par)
+```
+

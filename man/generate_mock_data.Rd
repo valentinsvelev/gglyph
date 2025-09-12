@@ -30,7 +30,7 @@ A data frame with mock data for nodes and edges.
 Generates custom mock data to be passed to gglyph::geom_glyph().
 }
 \examples{
-\dontrun{
+\donttest{
 ########################
 # For non-grouped data #
 ########################

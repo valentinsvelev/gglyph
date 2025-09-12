@@ -81,37 +81,41 @@ A ggplot2 layer with custom network-based graph.
 Create a network-style graph that illustrates directed pairwise relationships using custom edges.
 }
 \examples{
-\dontrun{
+\donttest{
 ##################################
 # For non-grouped/-facetted plot #
 ##################################
 
-ggplot(data = data) +
-  geom_glyph()
+data <- gglyph::generate_mock_data(n_groups = 1)
 
-ggplot(data = data) +
-  geom_glyph(edge_colour = "purple", node_colour = "blue")
+ggplot2::ggplot(data = data) +
+  gglyph::geom_glyph()
 
-ggplot(data = data) +
-  geom_glyph(edge_colour = "purple", node_colour = "blue") +
-  labs(title = "A beautiful glyph")
+ggplot2::ggplot(data = data) +
+  gglyph::geom_glyph(edge_colour = "purple", node_colour = "blue")
+
+ggplot2::ggplot(data = data) +
+  gglyph::geom_glyph(edge_colour = "purple", node_colour = "blue") +
+  ggplot2::labs(title = "A beautiful glyph")
 
 #############################
 # For grouped/facetted plot #
 #############################
 
-ggplot(data = data) +
-  geom_glyph() +
-  facet_wrap(~ group)
+data <- gglyph::generate_mock_data(n_groups = 3)
 
-ggplot(data = data) +
-  geom_glyph(edge_colour = viridis, node_colour = viridis) +
-  facet_wrap(~ group)
+ggplot2::ggplot(data = data) +
+  gglyph::geom_glyph() +
+  ggplot2::facet_wrap(~ group)
 
-ggplot(data = data) +
-  geom_glyph(edge_colour = viridis, node_colour = viridis) +
-  facet_wrap(~ group) +
-  labs(title = "Beautiful glyphs")
+ggplot2::ggplot(data = data) +
+  gglyph::geom_glyph(edge_colour = viridis::viridis, node_colour = viridis::viridis) +
+  ggplot2::facet_wrap(~ group)
+
+ggplot2::ggplot(data = data) +
+  gglyph::geom_glyph(edge_colour = viridis::viridis, node_colour = viridis::viridis) +
+  ggplot2::facet_wrap(~ group) +
+  ggplot2::labs(title = "Beautiful glyphs")
   }
 }
 \seealso{
