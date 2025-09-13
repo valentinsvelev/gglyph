@@ -28,11 +28,18 @@ vignette: >
 </style>
 
 ## The Package
-`gglyph` is a package for creating directed network-style graphs for statistical and non-statistical data with custom edges. It builds on `ggplot2` and includes three functions:
+`gglyph` is a package for creating directed network-style graphs for statistical and non-statistical data with custom edges. It builds on `ggplot2` and includes four functions:
 
-* `geom_glyph()`: Create a network-based graph that illustrates pairwise relationships (statistical and non-statistical) using custom edges,
-* `process_data_statistical()`: Process statistical data (e.g., pairwise t-tests) for plotting, and
-* `process_data_general()`: Process general / non-statistical data (any data with directional relationships) for plotting.
+* `geom_glyph()`: Create a network-based graph that illustrates pairwise relationships (statistical and non-statistical) using custom edges
+* `process_data_statistical()`: Process statistical data (e.g., pairwise t-tests) for plotting
+* `process_data_general()`: Process general / non-statistical data (any data with directional relationships) for plotting
+* `generate_mock_data()`: Create mock data for experimenting with `geom_glyph()`
+
+The pipeline is as follows:
+
+1. Obtain a dataset with directed pairwise relationships. This can be done using the function `generate_mock_data()` or by using your own dataset (e.g., running pairwise t-tests on your data).
+2. Process the dataset using either `process_data_statistical()`or `process_data_general()`.
+3. Create a glyph plot with `geom_glyph()`.
 
 The package also includes two datasets:
 
@@ -169,7 +176,7 @@ final_grid <- wrap_plots(plot_list, ncol = 2)
 final_grid
 ```
 
-This style of plots was first used in [this paper](https://doi.org/10.1371/journal.pone.0245100), where the plots were painstakingly created manually in Photoshop. Now we have a package for that ;).
+This style of plots was first used in [this paper](https://doi.org/10.1371/journal.pone.0245100), where the authors investigated the relationship between spokesperson and the likelihood of message resharing during the COVID-19 pandemic using pairwise statistical tests. In that paper, the plots were painstakingly created manually in Photoshop. Now we have a package for that ;).
 
 ### Some Prettier Examples... Well, depends on the eye of the beholder
 These plots can also be improved aesthetically using the arguments in Table 1. To illustrate, I will use the mock data created earlier.
@@ -480,11 +487,11 @@ kable(eq_table, "html", caption = "<span style='font-size: 0.9em;'>Table 5: Argu
 
 To illustrate how raw data is processed using `process_data_statistical` and `process_data_general`, I will use the two datasets in `gglyph` and show a "before and after".
 
-First, I will load and wrangle the datasets included in the package (see the chapter on the datasets).
+First, I will load and wrangle the datasets included in the package (see the first chapter).
 
-For the PISA 2022 dataset, I will use the country variable (CNT), the variable indicating the highest educational level attainment by either parent (HISCED), and an average score of the math comprehension items (PV*MATH).
+For the PISA 2022 dataset, I used the country variable (CNT), the variable indicating the highest educational level attainment by either parent (HISCED), and an average score of the math comprehension items (PV*MATH) to conduct pairwise t-tests (with Bonferroni correction).
 
-For the SIPRI dataset, I will use the absolute amount of military expenditures in current US dollars.
+For the SIPRI dataset, I will use the absolute amount of military expenditures in current US dollars to create higher-lower pairwise relationships.
 
 For both, I will use the ready-made datasets included in the package. For more information on how they were created, click [here](https://github.com/valentinsvelev/gglyph/tree/main/data-raw).
 
@@ -582,6 +589,7 @@ After a bit of polishing, they can look like this:
 ```{r glyphs_pisa_polished}
 ggplot(data = processed_data_pisa) +
   geom_glyph(
+    node_size = 1.175,
     node_colour = "black",
     edge_colour = "orange"
   ) +
@@ -589,11 +597,12 @@ ggplot(data = processed_data_pisa) +
 
 ggplot(data = processed_data_pisa_group) +
   geom_glyph(
+    node_size = 0.75,
     node_fill = rainbow,
     node_colour = "black",
     edge_fill = rainbow,
     label_size = 3.75,
-    group_label_size = 9
+    group_label_size = 7.5
   ) +
   facet_wrap(~ group) +
   labs(title = "PISA 2022 Parental Education")
@@ -604,6 +613,7 @@ And for the SIPRI dataset:
 ```{r glyphs_sipri_polished}
 ggplot(data = processed_data_sipri) +
   geom_glyph(
+    node_size = 1.175,
     node_colour = "black",
     node_fill = "purple",
     edge_fill = "blue"

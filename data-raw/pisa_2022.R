@@ -45,7 +45,7 @@ eu_countries <- c(
 )
 
 # Education
-labels <- c("ISCED <=1", "ISCED 2", "ISCED 3", "ISCED 4&5", "ISCED >=6")
+labels <- c("ISCED 0&1", "ISCED 2", "ISCED 3", "ISCED 4&5", "ISCED 6+")
 
 isced_map <- setNames(
   c(

@@ -3,7 +3,7 @@
 \docType{data}
 \name{pisa_2022}
 \alias{pisa_2022}
-\title{PISA 2022}
+\title{PISA 2022 data}
 \format{
 A data frame with 492 rows and 3 variables:
 \describe{
@@ -24,7 +24,7 @@ Licensed under CC BY 4.0: \url{https://creativecommons.org/licenses/by/4.0/}
 data(pisa_2022)
 }
 \description{
-Results of pairwise t-tests performed on a subset from the PISA 2022 data.
+Results of pairwise t-tests (with Bonferroni correction) performed on a subset from the PISA 2022 data.
 }
 \examples{
 data(pisa_2022)

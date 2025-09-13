@@ -3,7 +3,7 @@
 \docType{data}
 \name{sipri_milex_1995_2023}
 \alias{sipri_milex_1995_2023}
-\title{SIPRI Military Expenditure 1995-2023}
+\title{SIPRI Military Expenditure 1995-2023 data}
 \format{
 A data frame with 77 rows and 3 variables:
 \describe{

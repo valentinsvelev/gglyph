@@ -1,6 +1,6 @@
-#' PISA 2022
+#' PISA 2022 data
 #'
-#' Results of pairwise t-tests performed on a subset from the PISA 2022 data.
+#' Results of pairwise t-tests (with Bonferroni correction) performed on a subset from the PISA 2022 data.
 #'
 #' @docType data
 #' @name pisa_2022
@@ -29,7 +29,7 @@
 #' head(pisa_2022)
 NULL
 
-#' SIPRI Military Expenditure 1995-2023
+#' SIPRI Military Expenditure 1995-2023 data
 #'
 #' A subset of the SIPRI Military Expenditure 1949-2023 data.
 #'
