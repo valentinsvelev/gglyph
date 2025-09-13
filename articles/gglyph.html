@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">gglyph</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.2.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,7 +61,7 @@
                         <h4 data-toc-skip class="author">Valentin Velev
 (University of Konstanz)</h4>
             
-            <h4 data-toc-skip class="date">2025-09-12</h4>
+            <h4 data-toc-skip class="date">2025-09-13</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/valentinsvelev/gglyph/blob/main/vignettes/gglyph.Rmd" class="external-link"><code>vignettes/gglyph.Rmd</code></a></small>
       <div class="d-none name"><code>gglyph.Rmd</code></div>
@@ -91,20 +91,34 @@
 </h2>
 <p><code>gglyph</code> is a package for creating directed network-style
 graphs for statistical and non-statistical data with custom edges. It
-builds on <code>ggplot2</code> and includes three functions:</p>
+builds on <code>ggplot2</code> and includes four functions:</p>
 <ul>
 <li>
 <code><a href="../reference/geom_glyph.html">geom_glyph()</a></code>: Create a network-based graph that
 illustrates pairwise relationships (statistical and non-statistical)
-using custom edges,</li>
+using custom edges</li>
 <li>
 <code><a href="../reference/process_data_statistical.html">process_data_statistical()</a></code>: Process statistical data
-(e.g., pairwise t-tests) for plotting, and</li>
+(e.g., pairwise t-tests) for plotting</li>
 <li>
 <code><a href="../reference/process_data_general.html">process_data_general()</a></code>: Process general /
 non-statistical data (any data with directional relationships) for
-plotting.</li>
+plotting</li>
+<li>
+<code><a href="../reference/generate_mock_data.html">generate_mock_data()</a></code>: Create mock data for
+experimenting with <code><a href="../reference/geom_glyph.html">geom_glyph()</a></code>
+</li>
 </ul>
+<p>The pipeline is as follows:</p>
+<ol style="list-style-type: decimal">
+<li>Obtain a dataset with directed pairwise relationships. This can be
+done using the function <code><a href="../reference/generate_mock_data.html">generate_mock_data()</a></code> or by using
+your own dataset (e.g., running pairwise t-tests on your data).</li>
+<li>Process the dataset using either
+<code><a href="../reference/process_data_statistical.html">process_data_statistical()</a></code>or
+<code><a href="../reference/process_data_general.html">process_data_general()</a></code>.</li>
+<li>Create a glyph plot with <code><a href="../reference/geom_glyph.html">geom_glyph()</a></code>.</li>
+</ol>
 <p>The package also includes two datasets:</p>
 <ul>
 <li>
@@ -2420,8 +2434,10 @@ generated mock data:</p>
 <span><span class="va">final_grid</span></span></code></pre></div>
 <p><img src="gglyph_files/figure-html/example_glyphs_diff_num_nodes-1.png" width="768"></p>
 <p>This style of plots was first used in <a href="https://doi.org/10.1371/journal.pone.0245100" class="external-link">this paper</a>,
-where the plots were painstakingly created manually in Photoshop. Now we
-have a package for that ;).</p>
+where the authors investigated the relationship between spokesperson and
+the likelihood of message resharing during the COVID-19 pandemic using
+pairwise statistical tests. In that paper, the plots were painstakingly
+created manually in Photoshop. Now we have a package for that ;).</p>
 </div>
 <div class="section level3">
 <h3 id="some-prettier-examples-well-depends-on-the-eye-of-the-beholder">Some Prettier Examples… Well, depends on the eye of the
@@ -2802,13 +2818,14 @@ Significance threshold. Default is 0.05.
 <code>process_data_general</code>, I will use the two datasets in
 <code>gglyph</code> and show a “before and after”.</p>
 <p>First, I will load and wrangle the datasets included in the package
-(see the chapter on the datasets).</p>
-<p>For the PISA 2022 dataset, I will use the country variable (CNT), the
+(see the first chapter).</p>
+<p>For the PISA 2022 dataset, I used the country variable (CNT), the
 variable indicating the highest educational level attainment by either
 parent (HISCED), and an average score of the math comprehension items
-(PV*MATH).</p>
+(PV*MATH) to conduct pairwise t-tests (with Bonferroni correction).</p>
 <p>For the SIPRI dataset, I will use the absolute amount of military
-expenditures in current US dollars.</p>
+expenditures in current US dollars to create higher-lower pairwise
+relationships.</p>
 <p>For both, I will use the ready-made datasets included in the package.
 For more information on how they were created, click <a href="https://github.com/valentinsvelev/gglyph/tree/main/data-raw" class="external-link">here</a>.</p>
 <div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
@@ -2838,24 +2855,10 @@ sig
 <tbody>
 <tr>
 <td style="text-align:left;">
-ISCED &gt;=6
-</td>
-<td style="text-align:left;">
-ISCED &lt;=1
-</td>
-<td style="text-align:left;">
-Austria
-</td>
-<td style="text-align:right;">
-1
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 ISCED 2
 </td>
 <td style="text-align:left;">
-ISCED &lt;=1
+ISCED 0&amp;1
 </td>
 <td style="text-align:left;">
 Austria
@@ -2869,7 +2872,7 @@ Austria
 ISCED 3
 </td>
 <td style="text-align:left;">
-ISCED &lt;=1
+ISCED 0&amp;1
 </td>
 <td style="text-align:left;">
 Austria
@@ -2883,7 +2886,7 @@ Austria
 ISCED 4&amp;5
 </td>
 <td style="text-align:left;">
-ISCED &lt;=1
+ISCED 0&amp;1
 </td>
 <td style="text-align:left;">
 Austria
@@ -2894,16 +2897,16 @@ Austria
 </tr>
 <tr>
 <td style="text-align:left;">
-ISCED 2
+ISCED 6+
 </td>
 <td style="text-align:left;">
-ISCED &gt;=6
+ISCED 0&amp;1
 </td>
 <td style="text-align:left;">
 Austria
 </td>
 <td style="text-align:right;">
-0
+1
 </td>
 </tr>
 <tr>
@@ -2911,13 +2914,27 @@ Austria
 ISCED 3
 </td>
 <td style="text-align:left;">
-ISCED &gt;=6
+ISCED 2
 </td>
 <td style="text-align:left;">
 Austria
 </td>
 <td style="text-align:right;">
-0
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED 4&amp;5
+</td>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:left;">
+Austria
+</td>
+<td style="text-align:right;">
+1
 </td>
 </tr>
 </tbody>
@@ -3103,10 +3120,10 @@ y
 <tbody>
 <tr>
 <td style="text-align:left;">
-ISCED &gt;=6
+ISCED 2
 </td>
 <td style="text-align:left;">
-ISCED &lt;=1
+ISCED 0&amp;1
 </td>
 <td style="text-align:right;">
 0
@@ -3150,13 +3167,22 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-ISCED &gt;=6
+ISCED 3
 </td>
 <td style="text-align:left;">
-ISCED 2
+ISCED 0&amp;1
 </td>
 <td style="text-align:right;">
 0
+</td>
+<td style="text-align:right;">
+1.571
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
 </td>
 <td style="text-align:right;">
 -0.942
@@ -3167,6 +3193,35 @@ ISCED 2
 <td style="text-align:right;">
 -0.809
 </td>
+<td style="text-align:left;">
+edge
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED 3
+</td>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0.314
 </td>
@@ -3175,6 +3230,15 @@ ISCED 2
 </td>
 <td style="text-align:right;">
 0.309
+</td>
+<td style="text-align:right;">
+-0.942
+</td>
+<td style="text-align:right;">
+0.588
+</td>
+<td style="text-align:right;">
+-0.809
 </td>
 <td style="text-align:left;">
 edge
@@ -3197,13 +3261,22 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-ISCED &gt;=6
+ISCED 4&amp;5
 </td>
 <td style="text-align:left;">
-ISCED 3
+ISCED 0&amp;1
 </td>
 <td style="text-align:right;">
 0
+</td>
+<td style="text-align:right;">
+1.571
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
 </td>
 <td style="text-align:right;">
 -2.199
@@ -3214,6 +3287,35 @@ ISCED 3
 <td style="text-align:right;">
 -0.809
 </td>
+<td style="text-align:left;">
+edge
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED 4&amp;5
+</td>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:right;">
+0
+</td>
 <td style="text-align:right;">
 0.314
 </td>
@@ -3222,6 +3324,15 @@ ISCED 3
 </td>
 <td style="text-align:right;">
 0.309
+</td>
+<td style="text-align:right;">
+-2.199
+</td>
+<td style="text-align:right;">
+-0.588
+</td>
+<td style="text-align:right;">
+-0.809
 </td>
 <td style="text-align:left;">
 edge
@@ -3244,13 +3355,22 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-ISCED &gt;=6
+ISCED 6+
 </td>
 <td style="text-align:left;">
-ISCED 4&amp;5
+ISCED 2
 </td>
 <td style="text-align:right;">
 0
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+<td style="text-align:right;">
+0.951
+</td>
+<td style="text-align:right;">
+0.309
 </td>
 <td style="text-align:right;">
 -3.456
@@ -3260,109 +3380,6 @@ ISCED 4&amp;5
 </td>
 <td style="text-align:right;">
 0.309
-</td>
-<td style="text-align:right;">
-0.314
-</td>
-<td style="text-align:right;">
-0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ISCED 2
-</td>
-<td style="text-align:left;">
-ISCED &lt;=1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.571
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
--0.942
-</td>
-<td style="text-align:right;">
-0.588
-</td>
-<td style="text-align:right;">
--0.809
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ISCED 3
-</td>
-<td style="text-align:left;">
-ISCED &lt;=1
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1.571
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:right;">
-1.000
-</td>
-<td style="text-align:right;">
--2.199
-</td>
-<td style="text-align:right;">
--0.588
-</td>
-<td style="text-align:right;">
--0.809
 </td>
 <td style="text-align:left;">
 edge
@@ -3443,7 +3460,7 @@ y
 <tbody>
 <tr>
 <td style="text-align:left;">
-ISCED &lt;=1
+ISCED 0&amp;1
 </td>
 <td style="text-align:left;">
 Czech Republic
@@ -3455,13 +3472,13 @@ ISCED 2
 0.019
 </td>
 <td style="text-align:right;">
--0.942
+0.314
 </td>
 <td style="text-align:right;">
-0.588
+0.951
 </td>
 <td style="text-align:right;">
--0.809
+0.309
 </td>
 <td style="text-align:right;">
 1.571
@@ -3492,114 +3509,14 @@ NA
 </td>
 </tr>
 <tr>
-<td style="text-align:left;">
-ISCED &gt;=6
-</td>
-<td style="text-align:left;">
-Austria
-</td>
-<td style="text-align:left;">
-ISCED 3
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:right;">
--2.199
-</td>
-<td style="text-align:right;">
--0.588
-</td>
-<td style="text-align:right;">
--0.809
-</td>
-<td style="text-align:right;">
-0.314
-</td>
-<td style="text-align:right;">
-0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ISCED &gt;=6
-</td>
-<td style="text-align:left;">
-Austria
-</td>
 <td style="text-align:left;">
 ISCED 2
 </td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:right;">
--0.942
-</td>
-<td style="text-align:right;">
-0.588
-</td>
-<td style="text-align:right;">
--0.809
-</td>
-<td style="text-align:right;">
-0.314
-</td>
-<td style="text-align:right;">
-0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ISCED &gt;=6
-</td>
 <td style="text-align:left;">
 Austria
 </td>
 <td style="text-align:left;">
-ISCED &lt;=1
+ISCED 0&amp;1
 </td>
 <td style="text-align:right;">
 0.000
@@ -3643,75 +3560,175 @@ NA
 </tr>
 <tr>
 <td style="text-align:left;">
-ISCED &gt;=6
-</td>
-<td style="text-align:left;">
-Austria
-</td>
-<td style="text-align:left;">
-ISCED 4&amp;5
-</td>
-<td style="text-align:right;">
-0.000
-</td>
-<td style="text-align:right;">
--3.456
-</td>
-<td style="text-align:right;">
--0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:right;">
-0.314
-</td>
-<td style="text-align:right;">
-0.951
-</td>
-<td style="text-align:right;">
-0.309
-</td>
-<td style="text-align:left;">
-edge
-</td>
-<td style="text-align:right;">
-0.05
-</td>
-<td style="text-align:left;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-<td style="text-align:right;">
-NA
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-ISCED &gt;=6
+ISCED 2
 </td>
 <td style="text-align:left;">
 Belgium
 </td>
 <td style="text-align:left;">
-ISCED 2
+ISCED 0&amp;1
 </td>
 <td style="text-align:right;">
 0.000
 </td>
 <td style="text-align:right;">
--0.942
+1.571
 </td>
 <td style="text-align:right;">
-0.588
+0.000
 </td>
 <td style="text-align:right;">
--0.809
+1.000
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+<td style="text-align:right;">
+0.951
+</td>
+<td style="text-align:right;">
+0.309
+</td>
+<td style="text-align:left;">
+edge
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:left;">
+France
+</td>
+<td style="text-align:left;">
+ISCED 0&amp;1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.571
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+<td style="text-align:right;">
+0.951
+</td>
+<td style="text-align:right;">
+0.309
+</td>
+<td style="text-align:left;">
+edge
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:left;">
+Germany
+</td>
+<td style="text-align:left;">
+ISCED 0&amp;1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.571
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
+</td>
+<td style="text-align:right;">
+0.314
+</td>
+<td style="text-align:right;">
+0.951
+</td>
+<td style="text-align:right;">
+0.309
+</td>
+<td style="text-align:left;">
+edge
+</td>
+<td style="text-align:right;">
+0.05
+</td>
+<td style="text-align:left;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+<td style="text-align:right;">
+NA
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ISCED 2
+</td>
+<td style="text-align:left;">
+Greece
+</td>
+<td style="text-align:left;">
+ISCED 0&amp;1
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.571
+</td>
+<td style="text-align:right;">
+0.000
+</td>
+<td style="text-align:right;">
+1.000
 </td>
 <td style="text-align:right;">
 0.314
@@ -3767,6 +3784,7 @@ NA
 <div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_pisa</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
+<span>    node_size <span class="op">=</span> <span class="fl">1.175</span>,</span>
 <span>    node_colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    edge_colour <span class="op">=</span> <span class="st">"orange"</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
@@ -3775,11 +3793,12 @@ NA
 <div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_pisa_group</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
+<span>    node_size <span class="op">=</span> <span class="fl">0.75</span>,</span>
 <span>    node_fill <span class="op">=</span> <span class="va">rainbow</span>,</span>
 <span>    node_colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    edge_fill <span class="op">=</span> <span class="va">rainbow</span>,</span>
 <span>    label_size <span class="op">=</span> <span class="fl">3.75</span>,</span>
-<span>    group_label_size <span class="op">=</span> <span class="fl">9</span></span>
+<span>    group_label_size <span class="op">=</span> <span class="fl">7.5</span></span>
 <span>  <span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"PISA 2022 Parental Education"</span><span class="op">)</span></span></code></pre></div>
@@ -3788,6 +3807,7 @@ NA
 <div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">processed_data_sipri</span><span class="op">)</span> <span class="op">+</span></span>
 <span>  <span class="fu"><a href="../reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
+<span>    node_size <span class="op">=</span> <span class="fl">1.175</span>,</span>
 <span>    node_colour <span class="op">=</span> <span class="st">"black"</span>,</span>
 <span>    node_fill <span class="op">=</span> <span class="st">"purple"</span>,</span>
 <span>    edge_fill <span class="op">=</span> <span class="st">"blue"</span></span>
