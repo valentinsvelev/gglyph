@@ -3,6 +3,14 @@
 - Local: macOS 15.6.1 (arm64), R 4.4.3
 - R-hub v2: Linux, Windows, macOS (arm64 & x86_64), Ubuntu (next/R-devel) — all ✔
 
+1 NOTE in win-builder check:
+- "Possibly misspelled words in DESCRIPTION:
+  Abu (14:5)
+  Akel (14:9)
+  al (14:17)
+  et (14:14)"
+- Explanation: This NOTE appears to be a false positive from the spell checker and can therefore be safely ignored.
+
 ## R CMD check results
 
 0 errors ✔ | 0 warnings ✔ | 0 notes ✔ (local)

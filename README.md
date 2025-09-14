@@ -4,7 +4,7 @@
 <!-- badges: start -->
 
 [![Dev
-version](https://img.shields.io/badge/devel%20version-0.1.0-orange.svg)](https://github.com/valentinsvelev/gglyph)
+version](https://img.shields.io/badge/devel%20version-0.2.0-orange.svg)](https://github.com/valentinsvelev/gglyph)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- [![CRAN status](https://www.r-pkg.org/badges/version/gglyph)](https://CRAN.R-project.org/package=gglyph)
@@ -18,6 +18,20 @@ MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.or
 `gglyph` provides tools for creating network-style visualizations of
 directed pairwise relationships using custom edge glyphs built on top of
 `ggplot2`.
+
+The package includes four functions:
+
+1.  `geom_glyph()`: Create a network-based graph that illustrates
+    pairwise relationships (statistical and non-statistical) using
+    custom edges
+2.  `process_data_statistical()`: Process statistical data (e.g.,
+    pairwise t-tests) for plotting
+3.  `process_data_general()`: Process general / non-statistical data
+    (any data with directional relationships) for plotting
+4.  `generate_mock_data()`: Create mock data for experimenting with
+    `geom_glyph()`
+
+They should be used in the following order: either 4 → 1 or 2/3 → 1.
 
 Please note that the package has two licenses:
 
@@ -65,7 +79,7 @@ ggplot(data = data) +
 
 To cite the package use:
 
-    Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.1.0. https://github.com/valentinsvelev/gglyph
+    Velev, V., & Spitz, A. (2025). gglyph: Network-Style Visualization Of Directed Pairwise Relationships. R package version 0.2.0. https://github.com/valentinsvelev/gglyph
 
 Or for LaTeX users:
 
@@ -73,6 +87,6 @@ Or for LaTeX users:
       title = {{gglyph: Network-Style Visualization Of Directed Pairwise Relationships}},
       author = {Velev, Valentin and Spitz, Andreas},
       year = {2025},
-      note = {R package version 0.1.0},
+      note = {R package version 0.2.0},
       url = {https://github.com/valentinsvelev/gglyph}
     }
