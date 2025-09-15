@@ -1,7 +1,7 @@
 # gglyph 0.2.0
 
 * Implementation of CRAN's comments. 
-* Changed datasets from raw subsets to datasets that can directly be passed to gglyph::process_*_data().
+* Changed datasets from raw subsets to datasets that can directly be passed to gglyph::process_data_*().
 * Improved vignette.
 
 # gglyph 0.1.0

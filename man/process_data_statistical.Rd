@@ -4,7 +4,14 @@
 \alias{process_data_statistical}
 \title{Process statistical data}
 \usage{
-process_data_statistical(data, from, to, group = NULL, sig, thresh = 0.05)
+process_data_statistical(
+  data,
+  from = "from",
+  to = "to",
+  group = NULL,
+  sig = "sig",
+  thresh = 0.05
+)
 }
 \arguments{
 \item{data}{A DataFrame or tibble containing the input data to be processed.}

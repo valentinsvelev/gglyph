@@ -13,6 +13,6 @@ test_that("process_data_statistical - outputs required columns (full version)", 
 })
 
 test_that("process_data_statistical - errors on invalid inputs", {
-  expect_error(gglyph::process_data_statistical(NULL), regexp = "provide a DataFrame")
-  expect_error(gglyph::process_data_statistical(data.frame()), regexp = "valid column name")
+  expect_error(gglyph::process_data_statistical(NULL), regexp = "must be a DataFrame")
+  expect_error(gglyph::process_data_statistical(data.frame()), regexp = "column name")
 })

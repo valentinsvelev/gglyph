@@ -35,8 +35,8 @@ process_data_general <- function(
   # -- Check function usage
 
   # (1) Check 'data' argument
-  if (missing(data) || !is.data.frame(data)) {
-    stop("The 'data' argument must be a data frame.", call. = FALSE)
+  if (missing(data) || !is.data.frame(data) || is.null(data)) {
+    stop("The 'data' argument must be a DataFrame.", call. = FALSE)
   }
 
   # (2) Check 'from' argument (start nodes)

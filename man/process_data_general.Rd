@@ -4,7 +4,7 @@
 \alias{process_data_general}
 \title{Process general/non-statistical data}
 \usage{
-process_data_general(data, from, to, group = NULL)
+process_data_general(data, from = "from", to = "to", group = NULL)
 }
 \arguments{
 \item{data}{A DataFrame or tibble containing the input data to be processed.}
