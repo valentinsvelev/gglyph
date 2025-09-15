@@ -21,7 +21,7 @@
 
 ## Notes from previous submission
 
-### Resubmission #2 (11.09.2025)
+### Resubmission #2 (15.09.2025)
 
 - Fixed the title of the package.
 - Added a reference in the DESCRIPTION file.

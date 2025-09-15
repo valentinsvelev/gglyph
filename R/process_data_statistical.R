@@ -8,7 +8,7 @@
 #' @param group A string indicating the column name for the grouping variable.
 #' @param sig A string indicating the column name for the significance level.
 #' @param thresh A single number indicating the significance threshold. Default is 0.05.
-#' @return A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
+#' @returns A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
 #' @export
 #' @examples
 #' data(pisa_2022)
@@ -33,32 +33,50 @@
 #' )
 process_data_statistical <- function(
     data,
-    from,
-    to,
+    from = "from",
+    to = "to",
     group = NULL,
-    sig,
+    sig = "sig",
     thresh = 0.05
     ) {
 
-  # Check function usage
+  # -- Check function usage
+
+  # (1) Check 'data' argument
   if (missing(data) || !is.data.frame(data)) {
-    stop("Please provide a DataFrame.", call. = FALSE)
+    stop("The 'data' argument must be a data frame.", call. = FALSE)
   }
 
-  if (missing(from) || !from %in% names(data) || !is.character(from)) {
-    stop("Please provide a valid column name (as a single string) from your DataFrame containing the start nodes.", call. = FALSE)
+  # (2) Check 'from' argument (start nodes)
+  if (missing(from) && !from %in% names(data)) {
+    stop("Please provide a column name for the start nodes using the 'from' argument.", call. = FALSE)
+  }
+  if (!is.character(from) || length(from) != 1) {
+    stop("The 'from' argument must be a single string specifying a column name.", call. = FALSE)
   }
 
-  if (missing(to) || !to %in% names(data) || !is.character(to)) {
-    stop("Please provide a valid column name (as a single string) from your DataFrame containing the end nodes.", call. = FALSE)
+  # (3) Check 'to' argument (end nodes)
+  if (missing(to) && !to %in% names(data)) {
+    stop("Please provide a column name for the end nodes using the 'to' argument.", call. = FALSE)
+  }
+  if (!is.character(to) || length(to) != 1) {
+    stop("The 'to' argument must be a single string specifying a column name.", call. = FALSE)
   }
 
-  if (missing(sig) || !sig %in% names(data) || !is.character(sig)) {
-    stop("Please provide a valid column name (as a single string) from your DataFrame containing the statistical significances.", call. = FALSE)
+  # (4) Check 'sig' argument
+  if (missing(sig) && !sig %in% names(data)) {
+    stop("Please provide a column name for the statistical significance using the 'sig' argument.", call. = FALSE)
+  }
+  if (!is.character(sig) || length(sig) != 1) {
+    stop("The 'sig' argument must be a single string specifying a column name.", call. = FALSE)
   }
 
-  if (!is.numeric(thresh)) {
-    stop("Please provide decimal number that indicates the chosen significance threshold.", call. = FALSE)
+  # (5) Check 'thresh' argument
+  if (!is.numeric(thresh) || length(thresh) != 1) {
+    stop("The 'thresh' argument must be a single numeric value.", call. = FALSE)
+  }
+  if (thresh < 0 || thresh > 1) {
+    warning(paste0("The significance threshold 'thresh' is typically between 0 and 1. You provided: ", thresh), call. = FALSE)
   }
 
   # Preprocess data based on whether grouping is applied

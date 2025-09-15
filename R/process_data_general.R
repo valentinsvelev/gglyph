@@ -6,7 +6,7 @@
 #' @param from A string indicating the column name for the start nodes.
 #' @param to A string indicating the column name for the end nodes.
 #' @param group A string indicating the column name for the grouping variable.
-#' @return A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
+#' @returns A DataFrame with the preprocessed data that is to be passed to gglyph::geom_glyph().
 #' @export
 #' @examples
 #' data(sipri_milex_1995_2023)
@@ -27,22 +27,32 @@
 #' )
 process_data_general <- function(
     data,
-    from,
-    to,
+    from = "from",
+    to = "to",
     group = NULL
     ) {
 
-  # Check function usage
+  # -- Check function usage
+
+  # (1) Check 'data' argument
   if (missing(data) || !is.data.frame(data)) {
-    stop("Please provide a DataFrame.", call. = FALSE)
+    stop("The 'data' argument must be a data frame.", call. = FALSE)
   }
 
-  if (missing(from) || !from %in% names(data) || !is.character(from)) {
-    stop("Please provide a valid column name (as a string) from your DataFrame containing the start nodes.", call. = FALSE)
+  # (2) Check 'from' argument (start nodes)
+  if (missing(from) && !from %in% names(data)) {
+    stop("Please provide a column name for the start nodes using the 'from' argument.", call. = FALSE)
+  }
+  if (!is.character(from) || length(from) != 1) {
+    stop("The 'from' argument must be a single string specifying a column name.", call. = FALSE)
   }
 
-  if (missing(to) || !to %in% names(data) || !is.character(to)) {
-    stop("Please provide a valid column name (as a string) from your DataFrame containing the end nodes.", call. = FALSE)
+  # (3) Check 'to' argument (end nodes)
+  if (missing(to) && !to %in% names(data)) {
+    stop("Please provide a column name for the end nodes using the 'to' argument.", call. = FALSE)
+  }
+  if (!is.character(to) || length(to) != 1) {
+    stop("The 'to' argument must be a single string specifying a column name.", call. = FALSE)
   }
 
   # Preprocess data based on whether grouping is applied

@@ -381,7 +381,7 @@ GeomGlyphNode <- ggproto("GeomGlyphNode", Geom,
 #' @param na.rm If FALSE, the default, missing values are removed with a warning. If TRUE, missing values are silently removed.
 #' @param show.legend Should this layer be included in the legends? Default is TRUE.
 #' @param inherit.aes If FALSE, overrides the default aesthetics, rather than combining with them. Default is FALSE.
-#' @return A ggplot2 layer with custom network-based graph.
+#' @returns A ggplot2 layer with custom network-based graph.
 #' @seealso [ggplot2::ggsave()]
 #' @export
 #' @examples

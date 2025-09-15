@@ -7,7 +7,7 @@
 #' @param n_groups Number of groups (for faceting). Default is 1 (ungrouped).
 #' @param statistical If TRUE, generates mock p-values for edges. Default is FALSE.
 #' @param p_threshold The significance threshold for filtering edges. Default is 0.05.
-#' @return A data frame with mock data for nodes and edges.
+#' @returns A data frame with mock data for nodes and edges.
 #' @export
 #' @examples
 #' # For non-grouped data
