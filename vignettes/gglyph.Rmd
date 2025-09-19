@@ -584,7 +584,7 @@ ggplot(data = processed_data_pisa_group) +
     node_colour = "black",
     edge_fill = rainbow,
     label_size = 3.75,
-    group_label_size = 7.25
+    group_label_size = 6.75
   ) +
   facet_wrap(~ group) +
   labs(title = "PISA 2022 Parental Education")
