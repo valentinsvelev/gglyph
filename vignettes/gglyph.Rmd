@@ -9,24 +9,6 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
-<style>
-  /* Set fontsize for body text*/
-  body {
-    font-size: 15px;
-  }
-  
-  /* Increase space after bullet point*/
-  ul li {
-    margin-bottom: 10px;
-  }
-  
-  /* Set the width of the code chunks */
-  div.sourceCode {
-    width: 111% !important;
-    max-width: none !important;
-  }
-</style>
-
 ## The Package
 `gglyph` is a package for creating directed network-style graphs for statistical and non-statistical data with custom edges. It builds on `ggplot2` and includes four functions:
 
@@ -602,7 +584,7 @@ ggplot(data = processed_data_pisa_group) +
     node_colour = "black",
     edge_fill = rainbow,
     label_size = 3.75,
-    group_label_size = 7.5
+    group_label_size = 7.25
   ) +
   facet_wrap(~ group) +
   labs(title = "PISA 2022 Parental Education")
