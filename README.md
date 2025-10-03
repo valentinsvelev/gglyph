@@ -3,12 +3,12 @@
 
 <!-- badges: start -->
 
-[![Dev
-version](https://img.shields.io/badge/devel%20version-0.2.0-orange.svg)](https://github.com/valentinsvelev/gglyph)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/gglyph)](https://CRAN.R-project.org/package=gglyph)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/gglyph)](https://CRAN.R-project.org/package=gglyph)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html)
-<!-- [![CRAN status](https://www.r-pkg.org/badges/version/gglyph)](https://CRAN.R-project.org/package=gglyph)
-[![CRAN downloads](https://cranlogs.r-pkg.org/badges/gglyph)](https://CRAN.R-project.org/package=gglyph) -->
 [![License:
 MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![R-CMD-check](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml)
@@ -40,7 +40,13 @@ Please note that the package has two licenses:
 
 ## Installation
 
-You can install the development version from GitHub:
+You can either install the package from CRAN:
+
+``` r
+install.packages("gglyph")
+```
+
+Or you can install the development version from GitHub:
 
 ``` r
 install.packages("devtools")
@@ -49,21 +55,26 @@ devtools::install_github("valentinsvelev/gglyph")
 
 ## Use
 
-You can use the package with real data as follows:
+You can use the package as follows:
 
 ``` r
 library(gglyph)
 library(ggplot2)
 
-data(pisa_2022)
-
-data <- process_data_statistical(pisa_2022)
+data <- generate_mock_data(n_nodes = 5, n_edges = 15, statistical = TRUE)
 
 ggplot(data = data) +
-  geom_glyph()
+  geom_glyph(
+    edge_fill = "purple",
+    edge_colour = "black",
+    node_fill = "lightblue",
+    node_colour = "black"
+  )
 ```
 
-Or by first generating mock data:
+<img src="man/figures/README-fig1-1.png" width="100%" />
+
+Or with non-statistical data:
 
 ``` r
 library(gglyph)
@@ -72,8 +83,34 @@ library(ggplot2)
 data <- generate_mock_data(n_nodes = 5, n_edges = 10)
 
 ggplot(data = data) +
-  geom_glyph()
+  geom_glyph(
+    edge_fill = "yellow",
+    node_fill = "black",
+    node_colour = "yellow"
+  )
 ```
+
+<img src="man/figures/README-fig2-1.png" width="100%" />
+
+You can also use `ggplot2`’s `facet_wrap()` for grouped data:
+
+``` r
+library(gglyph)
+library(ggplot2)
+library(ggsci)
+
+data <- generate_mock_data(n_nodes = 5, n_edges = 20, n_groups = 6)
+
+ggplot(data = data) +
+  geom_glyph(
+    edge_fill = pal_uchicago(),
+    node_fill = "black",
+    node_colour = pal_uchicago()
+  ) +
+  facet_wrap(~ group)
+```
+
+<img src="man/figures/README-fig3-1.png" width="100%" />
 
 ## Citation
 
