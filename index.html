@@ -86,53 +86,82 @@
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version from GitHub:</p>
+<p>You can either install the package from CRAN:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gglyph"</span><span class="op">)</span></span></code></pre></div>
+<p>Or you can install the development version from GitHub:</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"devtools"</span><span class="op">)</span></span>
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"valentinsvelev/gglyph"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="use">Use<a class="anchor" aria-label="anchor" href="#use"></a>
 </h2>
-<p>You can use the package with real data as follows:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<p>You can use the package as follows:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://valentinsvelev.github.io/gglyph/">gglyph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">pisa_2022</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/process_data_statistical.html">process_data_statistical</a></span><span class="op">(</span><span class="va">pisa_2022</span><span class="op">)</span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generate_mock_data.html">generate_mock_data</a></span><span class="op">(</span>n_nodes <span class="op">=</span> <span class="fl">5</span>, n_edges <span class="op">=</span> <span class="fl">15</span>, statistical <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>Or by first generating mock data:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<span>  <span class="fu"><a href="reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
+<span>    edge_fill <span class="op">=</span> <span class="st">"purple"</span>,</span>
+<span>    edge_colour <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    node_fill <span class="op">=</span> <span class="st">"lightblue"</span>,</span>
+<span>    node_colour <span class="op">=</span> <span class="st">"black"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-fig1-1.png" width="100%"></p>
+<p>Or with non-statistical data:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://valentinsvelev.github.io/gglyph/">gglyph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generate_mock_data.html">generate_mock_data</a></span><span class="op">(</span>n_nodes <span class="op">=</span> <span class="fl">5</span>, n_edges <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<span>  <span class="fu"><a href="reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
+<span>    edge_fill <span class="op">=</span> <span class="st">"yellow"</span>,</span>
+<span>    node_fill <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    node_colour <span class="op">=</span> <span class="st">"yellow"</span></span>
+<span>  <span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-fig2-1.png" width="100%"></p>
+<p>You can also use <code>ggplot2</code>’s <code><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap()</a></code> for grouped data:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://valentinsvelev.github.io/gglyph/">gglyph</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://nanx.me/ggsci/" class="external-link">ggsci</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/generate_mock_data.html">generate_mock_data</a></span><span class="op">(</span>n_nodes <span class="op">=</span> <span class="fl">5</span>, n_edges <span class="op">=</span> <span class="fl">20</span>, n_groups <span class="op">=</span> <span class="fl">6</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">data</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="reference/geom_glyph.html">geom_glyph</a></span><span class="op">(</span></span>
+<span>    edge_fill <span class="op">=</span> <span class="fu">pal_uchicago</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>    node_fill <span class="op">=</span> <span class="st">"black"</span>,</span>
+<span>    node_colour <span class="op">=</span> <span class="fu">pal_uchicago</span><span class="op">(</span><span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/facet_wrap.html" class="external-link">facet_wrap</a></span><span class="op">(</span><span class="op">~</span> <span class="va">group</span><span class="op">)</span></span></code></pre></div>
+<p><img src="reference/figures/README-fig3-1.png" width="100%"></p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>To cite the package use:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>Velev, V., <span class="sc">&amp;</span> Spitz, <span class="fu">A.</span> (<span class="dv">2025</span>). gglyph<span class="sc">:</span> Network<span class="sc">-</span>Style Visualization Of Directed Pairwise Relationships. R package version <span class="dv">0</span>.<span class="dv">2</span>.<span class="fl">0.</span> https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>valentinsvelev<span class="sc">/</span>gglyph</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a>Velev, V., <span class="sc">&amp;</span> Spitz, <span class="fu">A.</span> (<span class="dv">2025</span>). gglyph<span class="sc">:</span> Network<span class="sc">-</span>Style Visualization Of Directed Pairwise Relationships. R package version <span class="dv">0</span>.<span class="dv">2</span>.<span class="fl">0.</span> https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>valentinsvelev<span class="sc">/</span>gglyph</span></code></pre></div>
 <p>Or for LaTeX users:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
-<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>  title <span class="ot">=</span> {{gglyph<span class="sc">:</span> Network<span class="sc">-</span>Style Visualization Of Directed Pairwise Relationships}},</span>
-<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>  author <span class="ot">=</span> {Velev, Valentin and Spitz, Andreas},</span>
-<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
-<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">2.0</span>},</span>
-<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>valentinsvelev<span class="sc">/</span>gglyph}</span>
-<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode R"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="sc">@</span>Manual{,</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  title <span class="ot">=</span> {{gglyph<span class="sc">:</span> Network<span class="sc">-</span>Style Visualization Of Directed Pairwise Relationships}},</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  author <span class="ot">=</span> {Velev, Valentin and Spitz, Andreas},</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a>  year <span class="ot">=</span> {<span class="dv">2025</span>},</span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>  note <span class="ot">=</span> {R package version <span class="dv">0</span>.<span class="fl">2.0</span>},</span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  url <span class="ot">=</span> {https<span class="sc">:</span><span class="er">//</span>github.com<span class="sc">/</span>valentinsvelev<span class="sc">/</span>gglyph}</span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
+<li><a href="https://cloud.r-project.org/package=gglyph" class="external-link">View on CRAN</a></li>
 <li><a href="https://github.com/valentinsvelev/gglyph/" class="external-link">Browse source code</a></li>
 <li><a href="https://github.com/valentinsvelev/gglyph/issues/" class="external-link">Report a bug</a></li>
 </ul>
@@ -164,7 +193,8 @@
 <div class="dev-status">
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/valentinsvelev/gglyph" class="external-link"><img src="https://img.shields.io/badge/devel%20version-0.2.0-orange.svg" alt="Dev version"></a></li>
+<li><a href="https://CRAN.R-project.org/package=gglyph" class="external-link"><img src="https://www.r-pkg.org/badges/version/gglyph" alt="CRAN status"></a></li>
+<li><a href="https://CRAN.R-project.org/package=gglyph" class="external-link"><img src="https://cranlogs.r-pkg.org/badges/gglyph" alt="CRAN downloads"></a></li>
 <li><a href="https://lifecycle.r-lib.org/articles/stages.html" class="external-link"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 <li><a href="https://opensource.org/licenses/MIT" class="external-link"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a></li>
 <li><a href="https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/valentinsvelev/gglyph/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
